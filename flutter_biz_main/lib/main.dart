@@ -39,6 +39,9 @@ class _MainPageState extends BasePageTitleState<MainPage> with SingleTickerProvi
   }
   @override
   Widget getBody(BuildContext context) {
+    print('---main getBody---');
+    print(MediaQuery.of(context).devicePixelRatio);
+    print(MediaQuery.of(context).size);
     return Scaffold(
       body: [HomePage(), NewsPage(), SettingPage()][_currentIndex],
       bottomNavigationBar: BottomNavigationBar(

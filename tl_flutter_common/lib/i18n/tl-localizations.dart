@@ -32,8 +32,6 @@ class I18n with ChangeNotifier {
     return Provider.of<I18n>(context, listen: listen);
   }
 
-
-
   $(String key){
     return _localizedValues[_locale.languageCode][key] ?? key ?? '';
   }
