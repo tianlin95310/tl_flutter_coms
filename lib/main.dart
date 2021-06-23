@@ -9,5 +9,8 @@ final Map<String, WidgetBuilder> routes = {
   ...settingRoutes
 };
 
-void main() => runApp(MyApp(routes));
+void main() async {
+  // read app setting data
+  runApp(MyApp(routes));
+}
 

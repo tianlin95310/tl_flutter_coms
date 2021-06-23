@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tl_flutter_common/main.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tl_flutter_common/i18n/tl-locale-delegate.dart';
@@ -41,14 +43,14 @@ class MyApp extends StatelessWidget {
               onGenerateRoute: (RouteSettings settings) {
                 print('---onGenerateRoute---');
                 print(settings.toString());
-                return MaterialPageRoute(
+                return CupertinoPageRoute(
                   settings: settings,
                 );
               },
               onUnknownRoute: (RouteSettings settings) {
                 print('---onUnknownRoute---');
                 print(settings.toString());
-                return MaterialPageRoute(
+                return CupertinoPageRoute(
                   settings: settings,
                 );
               },
@@ -57,7 +59,8 @@ class MyApp extends StatelessWidget {
                 GlobalMaterialLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
-                TlLocalizationsDelegate.delegate
+                TlLocalizationsDelegate.delegate,
+                RefreshLocalizations.delegate,
               ],
               localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales){
                 print('---localeResolutionCallback---');

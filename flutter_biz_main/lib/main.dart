@@ -19,7 +19,7 @@ class MainPage extends BaseStatefulWidget {
   }
 }
 
-class _MainPageState extends BasePageTitleState<MainPage> with SingleTickerProviderStateMixin {
+class _MainPageState extends BaseState<MainPage> with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
 
   @override
@@ -27,16 +27,6 @@ class _MainPageState extends BasePageTitleState<MainPage> with SingleTickerProvi
     super.initState();
   }
 
-  @override
-  String getTitle() {
-    if (_currentIndex == 0) {
-      return I18n.of(context).main;
-    } else if (_currentIndex == 1) {
-      return I18n.of(context).news;
-    } else {
-      return I18n.of(context).mine;
-    }
-  }
   @override
   Widget getBody(BuildContext context) {
     print('---main getBody---');

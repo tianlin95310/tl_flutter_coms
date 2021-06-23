@@ -10,7 +10,7 @@ class ThemeSetting extends BaseStatefulWidget {
 
 class ThemeSettingState extends BasePageTitleState {
   @override
-  String getTitle() {
+  String getTitle(BuildContext context) {
     return I18n.getProvider(context).themeSetting;
   }
 

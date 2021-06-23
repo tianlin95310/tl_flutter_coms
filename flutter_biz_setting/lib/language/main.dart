@@ -10,7 +10,7 @@ class LanguageSetting extends BaseStatefulWidget {
 
 class LanguageSettingState extends BasePageTitleState {
   @override
-  String getTitle() {
+  String getTitle(BuildContext context) {
     return I18n.getProvider(context).languageSetting;
   }
 

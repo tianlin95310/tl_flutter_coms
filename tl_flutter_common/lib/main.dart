@@ -7,3 +7,6 @@ export 'start/main.dart';
 export 'themes/main.dart';
 
 export 'i18n/tl-localizations.dart';
+
+export 'widget/smart-refresher-views.dart';
+

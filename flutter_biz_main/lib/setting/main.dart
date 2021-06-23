@@ -8,22 +8,36 @@ class SettingPage extends BaseStatefulWidget {
   }
 }
 
-class SettingPageState extends BaseState {
+class SettingPageState extends BasePageTitleState {
   @override
   Widget getBody(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          ListTile(title: Text(I18n.getProvider(context).themeSetting), onTap: (){
+    return Column(
+      children: [
+        ListTile(
+          title: Text(I18n.getProvider(context).themeSetting),
+          onTap: () {
             Navigator.pushNamed(context, 'ThemeSetting', arguments: {'id': 1});
-          },),
-          Divider(height: 1,),
-          ListTile(title: Text(I18n.getProvider(context).languageSetting), onTap: (){
+          },
+        ),
+        Divider(
+          height: 1,
+        ),
+        ListTile(
+          title: Text(I18n.getProvider(context).languageSetting),
+          onTap: () {
             Navigator.pushNamed(context, 'LanguageSetting');
-          },)
-        ],
-      ),
+          },
+        ),
+        Divider(
+          height: 1,
+        ),
+        ListTile(
+          title: Text('关于我们'),
+          onTap: () {
+            Navigator.pushNamed(context, 'AboutUs');
+          },
+        )
+      ],
     );
   }
-
 }

@@ -8,16 +8,11 @@ class HomePage extends BaseStatefulWidget {
   }
 }
 
-class HomePageState extends BaseState {
+class HomePageState extends BasePageTitleState {
   @override
   Widget getBody(BuildContext context) {
-    return Scaffold(
-
-      body: Column(
-        children: [
-        ],
-      ),
+    return Column(
+      children: [],
     );
   }
-
 }
