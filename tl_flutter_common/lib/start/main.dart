@@ -9,10 +9,15 @@ import 'package:tl_flutter_common/i18n/tl-locale-delegate.dart';
 // 主题常量
 final TLFlutterThemes themes = TLFlutterThemes();
 
-class MyApp extends StatelessWidget {
-  final Map<String, WidgetBuilder> routes;
+final Map<String, WidgetBuilder> commonRoutes = {
+  'NotFoundPage': (BuildContext context, { arguments }) => NotFoundPage(),
+};
 
-  MyApp(this.routes);
+class MyApp extends StatelessWidget {
+  final Map<String, WidgetBuilder> visitRoutes;
+  final Map<String, WidgetBuilder> authRoutes;
+
+  MyApp(this.visitRoutes, this.authRoutes);
 
   @override
   Widget build(BuildContext context) {
@@ -38,20 +43,34 @@ class MyApp extends StatelessWidget {
               title: 'Flutter Demo',
               theme: TLFlutterThemes.getProvider(context).theme,
               initialRoute: 'home',
-              routes: routes,
+              routes: visitRoutes,
+              // app进入任务列表菜单后的标题
+              onGenerateTitle: (BuildContext context) {
+                return 'Tl Flutter Comps';
+              },
               // 未注册的动态路由
               onGenerateRoute: (RouteSettings settings) {
                 print('---onGenerateRoute---');
-                print(settings.toString());
-                return CupertinoPageRoute(
-                  settings: settings,
-                );
+                print(settings?.toString());
+                String routeName = settings.name;
+                WidgetBuilder builder = authRoutes[routeName];
+                if (builder != null) {
+                  return CupertinoPageRoute(
+                      settings: settings,
+                      builder: builder
+                  );
+                } else {
+                  // when run this, it will call onUnknownRoute later
+                  return null;
+                }
               },
               onUnknownRoute: (RouteSettings settings) {
                 print('---onUnknownRoute---');
                 print(settings.toString());
+                WidgetBuilder builder = visitRoutes['NotFoundPage'];
                 return CupertinoPageRoute(
-                  settings: settings,
+                    settings: settings,
+                    builder: builder
                 );
               },
               locale: localizations.locale,

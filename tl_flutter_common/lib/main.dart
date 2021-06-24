@@ -10,3 +10,5 @@ export 'i18n/tl-localizations.dart';
 
 export 'widget/smart-refresher-views.dart';
 
+export 'common-page/page-not-found.dart';
+

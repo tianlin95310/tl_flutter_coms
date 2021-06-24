@@ -138,11 +138,10 @@ abstract class BaseFutureState<T extends BaseStatefulWidget> extends State<T> {
           return getContent(context);
         } else {
           return Container(
-            child: Center(
-              child: Text(
-                'Loading...',
-                style: TextStyle(fontSize: 32),
-              ),
+            margin: EdgeInsets.symmetric(vertical: 16),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Loading...',
             ),
           );
         }

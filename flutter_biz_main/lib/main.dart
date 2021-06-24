@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_biz_main/home/main.dart';
 import 'package:flutter_biz_main/news/main.dart';
+import 'package:flutter_biz_main/setting/main.dart';
 import 'package:tl_flutter_common/main.dart';
 
-import 'setting/main.dart';
-
 final Map<String, WidgetBuilder> mainRoutes = {
-  'home': (BuildContext context, { arguments }) => MainPage(),
-  'SettingPage': (BuildContext context, { arguments }) => SettingPage(),
+  'home': (BuildContext context, { arguments }) => MainPage()
 };
 
 class MainPage extends BaseStatefulWidget {

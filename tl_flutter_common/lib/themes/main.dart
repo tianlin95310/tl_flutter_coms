@@ -9,7 +9,7 @@ class TLFlutterThemes with ChangeNotifier{
     notifyListeners();
   }
 
-  // use this method get a object can refresh Style
+  // use this method get a object can refresh Style when listen = true, and notifyListeners is called
   static TLFlutterThemes getProvider(BuildContext context, {bool listen = true}){
     return Provider.of<TLFlutterThemes>(context, listen: listen);
   }

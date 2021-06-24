@@ -4,13 +4,17 @@ import 'package:tl_flutter_common/start/main.dart';
 import 'package:flutter_biz_main/main.dart';
 import 'package:flutter_biz_setting/main.dart';
 
-final Map<String, WidgetBuilder> routes = {
+final Map<String, WidgetBuilder> visitRoutes = {
   ...mainRoutes,
-  ...settingRoutes
+  ...commonRoutes
+};
+
+final Map<String, WidgetBuilder> authRoutes = {
+  ...settingRoutes,
 };
 
 void main() async {
   // read app setting data
-  runApp(MyApp(routes));
+  runApp(MyApp(visitRoutes, authRoutes));
 }
 

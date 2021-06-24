@@ -36,6 +36,10 @@ class NewsPageState extends BasePageTitleState {
   }
 
   @override
+  String getTitle(BuildContext context) {
+    return I18n.getProvider(context).news;
+  }
+  @override
   Widget getBody(BuildContext context) {
     return SmartRefresher(
       enablePullDown: true,

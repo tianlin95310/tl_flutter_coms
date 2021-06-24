@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:tl_flutter_common/main.dart';
 
-class HomePage extends BaseStatefulWidget {
+class NotFoundPage extends BaseStatefulWidget {
   @override
   State<StatefulWidget> getState() {
-    return HomePageState();
+    return NotFoundState();
   }
 }
 
-class HomePageState extends BasePageTitleState {
-
+class NotFoundState extends BasePageTitleState {
   @override
   String getTitle(BuildContext context) {
-    return I18n.getProvider(context).main;
+    return "错误页面";
   }
-
   @override
   Widget getBody(BuildContext context) {
-    return Column(
-      children: [],
+    return Center(
+      child: Text('页面错误，你访问的页面不存在'),
     );
   }
 }

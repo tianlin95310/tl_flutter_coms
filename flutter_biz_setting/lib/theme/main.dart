@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:tl_flutter_common/main.dart';
 
 class ThemeSetting extends BaseStatefulWidget {
+  final Map arguments;
+
+  ThemeSetting(this.arguments);
+
   @override
   State<StatefulWidget> getState() {
     return ThemeSettingState();

@@ -9,6 +9,12 @@ class SettingPage extends BaseStatefulWidget {
 }
 
 class SettingPageState extends BasePageTitleState {
+
+  @override
+  String getTitle(BuildContext context) {
+    return I18n.getProvider(context).mine;
+  }
+
   @override
   Widget getBody(BuildContext context) {
     return Column(
@@ -35,6 +41,15 @@ class SettingPageState extends BasePageTitleState {
           title: Text('关于我们'),
           onTap: () {
             Navigator.pushNamed(context, 'AboutUs');
+          },
+        ),
+        Divider(
+          height: 1,
+        ),
+        ListTile(
+          title: Text('页面走丢了'),
+          onTap: () {
+            Navigator.pushNamed(context, 'unknown');
           },
         )
       ],
