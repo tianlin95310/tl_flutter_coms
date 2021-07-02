@@ -16,7 +16,7 @@ class LanguageSettingState extends BasePageTitleState {
 
   @override
   Widget getBody(BuildContext context) {
-    print('刷新');
+    print('LanguageSetting 刷新');
     return Container(
       child: Column(
         children: [

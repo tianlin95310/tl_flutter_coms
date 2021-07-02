@@ -11,7 +11,7 @@ abstract class BaseStatefulWidget extends StatefulWidget {
   BaseStatefulWidget({Key key}) : super(key: key);
 }
 
-// 基本的StatefulWidget State
+// 基本的StatefulWidget State, no Scaffold
 abstract class BaseState<T extends BaseStatefulWidget> extends State<T> {
   @override
   Widget build(BuildContext context) {
@@ -150,4 +150,46 @@ abstract class BaseFutureState<T extends BaseStatefulWidget> extends State<T> {
   }
 
   Widget getContent(BuildContext context);
+}
+
+// 异步加载的局部界面的State,with SingleTickerProviderStateMixin
+abstract class BaseFutureStateKeepAlive<T extends BaseStatefulWidget> extends State<T> with AutomaticKeepAliveClientMixin{
+  Future _future;
+
+  @override
+  void initState() {
+    super.initState();
+    _future = loadData();
+  }
+
+  Future loadData();
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return FutureBuilder(
+      future: _future,
+      initialData: null,
+      builder: (context, snapshot) {
+        print(snapshot);
+        if (snapshot.connectionState == ConnectionState.done) {
+          return getContent(context);
+        } else {
+          return Container(
+            margin: EdgeInsets.symmetric(vertical: 16),
+            alignment: Alignment.center,
+            child: Text(
+              'Loading...',
+              style: TextStyle(fontSize: 25),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Widget getContent(BuildContext context);
+
+  @override
+  bool get wantKeepAlive => true;
 }

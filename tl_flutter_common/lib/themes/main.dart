@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TLFlutterThemes with ChangeNotifier{
+class TLThemes with ChangeNotifier{
   static int _themeIndex = 0;
 
   changeTheme(int theme){
@@ -9,9 +9,11 @@ class TLFlutterThemes with ChangeNotifier{
     notifyListeners();
   }
 
+  get primaryColor => [Colors.blueAccent, Colors.redAccent][_themeIndex];
+
   // use this method get a object can refresh Style when listen = true, and notifyListeners is called
-  static TLFlutterThemes getProvider(BuildContext context, {bool listen = true}){
-    return Provider.of<TLFlutterThemes>(context, listen: listen);
+  static TLThemes getProvider(BuildContext context, {bool listen = true}){
+    return Provider.of<TLThemes>(context, listen: listen);
   }
 
   get themeIndex => _themeIndex;

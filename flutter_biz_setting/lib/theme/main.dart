@@ -20,7 +20,7 @@ class ThemeSettingState extends BasePageTitleState {
 
   @override
   Widget getBody(BuildContext context) {
-    print('刷新');
+    print('ThemeSetting 刷新');
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Column(
@@ -29,7 +29,8 @@ class ThemeSettingState extends BasePageTitleState {
             children: [
               GestureDetector(
                 onTap: (){
-                  themes.changeTheme(0);
+                  TLThemes.getProvider(context, listen: false).changeTheme(0);
+                  // themes.changeTheme(0);
                 },
                 child: Container(
                   width: 80,
@@ -37,7 +38,7 @@ class ThemeSettingState extends BasePageTitleState {
                   child: Card(
                     color: Colors.blueAccent,
                     child: Offstage(
-                      offstage: TLFlutterThemes.getProvider(context).themeIndex != 0,
+                      offstage: TLThemes.getProvider(context).themeIndex != 0,
                       child: Container(
                         alignment: Alignment.bottomCenter,
                         child: Icon(
@@ -52,7 +53,8 @@ class ThemeSettingState extends BasePageTitleState {
               ),
               GestureDetector(
                 onTap: (){
-                  themes.changeTheme(1);
+                  TLThemes.getProvider(context, listen: false).changeTheme(1);
+                  // themes.changeTheme(1);
                 },
                 child: Container(
                   width: 80,
@@ -60,7 +62,7 @@ class ThemeSettingState extends BasePageTitleState {
                   child: Card(
                     color: Colors.redAccent,
                     child: Offstage(
-                      offstage: TLFlutterThemes.getProvider(context).themeIndex != 1,
+                      offstage: TLThemes.getProvider(context).themeIndex != 1,
                       child: Container(
                         alignment: Alignment.bottomCenter,
                         child: Icon(

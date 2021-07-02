@@ -6,8 +6,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tl_flutter_common/main.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tl_flutter_common/i18n/tl-locale-delegate.dart';
-// 主题常量
-final TLFlutterThemes themes = TLFlutterThemes();
 
 final Map<String, WidgetBuilder> commonRoutes = {
   'NotFoundPage': (BuildContext context, { arguments }) => NotFoundPage(),
@@ -27,6 +25,8 @@ class MyApp extends StatelessWidget {
     );
     SystemChrome.setSystemUIOverlayStyle(_style);
 
+    TLThemes themes = TLThemes();
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: themes),
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
             print('---TlLocalizations Consumed---');
             return MaterialApp(
               title: 'Flutter Demo',
-              theme: TLFlutterThemes.getProvider(context).theme,
+              theme: TLThemes.getProvider(context).theme,
               initialRoute: 'home',
               routes: visitRoutes,
               // app进入任务列表菜单后的标题

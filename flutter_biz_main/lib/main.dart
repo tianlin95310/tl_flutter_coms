@@ -5,7 +5,7 @@ import 'package:flutter_biz_main/setting/main.dart';
 import 'package:tl_flutter_common/main.dart';
 
 final Map<String, WidgetBuilder> mainRoutes = {
-  'home': (BuildContext context, { arguments }) => MainPage()
+  'home': (BuildContext context, {arguments}) => MainPage()
 };
 
 class MainPage extends BaseStatefulWidget {
@@ -17,7 +17,8 @@ class MainPage extends BaseStatefulWidget {
   }
 }
 
-class _MainPageState extends BaseState<MainPage> with SingleTickerProviderStateMixin {
+class _MainPageState extends BaseState<MainPage>
+    with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
 
   @override
@@ -31,7 +32,10 @@ class _MainPageState extends BaseState<MainPage> with SingleTickerProviderStateM
     print(MediaQuery.of(context).devicePixelRatio);
     print(MediaQuery.of(context).size);
     return Scaffold(
-      body: [HomePage(), NewsPage(), SettingPage()][_currentIndex],
+      backgroundColor: Colors.white,
+      // 保留page的状态
+      body: IndexedStack(children: [HomePage(), NewsPage(), SettingPage()], index: _currentIndex,),
+      // body: [HomePage(), NewsPage(), SettingPage()][_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (int index) {
@@ -40,10 +44,25 @@ class _MainPageState extends BaseState<MainPage> with SingleTickerProviderStateM
             _currentIndex = index;
           });
         },
+        selectedItemColor: TLThemes.getProvider(context).primaryColor,
         items: [
-          BottomNavigationBarItem(label: I18n.of(context).main, icon: Icon(Icons.home)),
-          BottomNavigationBarItem(label: I18n.of(context).news, icon: Icon(Icons.message)),
-          BottomNavigationBarItem(label: I18n.of(context).mine, icon: Icon(Icons.account_box_sharp)),
+          BottomNavigationBarItem(
+            label: I18n.of(context).main,
+            icon: Icon(
+              Icons.home,
+            ),
+          ),
+          BottomNavigationBarItem(
+              label: I18n.of(context).news,
+              icon: Icon(
+                Icons.message,
+              )),
+          BottomNavigationBarItem(
+            label: I18n.of(context).mine,
+            icon: Icon(
+              Icons.account_box_sharp,
+            ),
+          ),
         ],
       ),
     );
