@@ -3,11 +3,10 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tl_flutter_common/main.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-
-import '../components.dart';
+import 'package:tl_flutter_common/main.dart';
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
+import 'package:loading_more_list/loading_more_list.dart';
 
 class NewsPage extends BaseStatefulWidget {
   @override
@@ -37,8 +36,17 @@ class NewsPageState extends BaseState with SingleTickerProviderStateMixin {
 
   @override
   Widget getBody(BuildContext context) {
-    return NestedScrollView(
-      physics: NeverScrollableScrollPhysics(),
+    return way(context);
+  }
+
+  Widget way(BuildContext context) {
+    return extended.NestedScrollView(
+      pinnedHeaderSliverHeightBuilder: () {
+        return MediaQuery.of(context).padding.top + kToolbarHeight;
+      },
+      innerScrollPositionKeyBuilder: () {
+        return Key(tabs[_tabController.index]);
+      },
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
         return [
           SliverAppBar(
@@ -58,122 +66,93 @@ class NewsPageState extends BaseState with SingleTickerProviderStateMixin {
             // 跟随滑动的title
             flexibleSpace: FlexibleSpaceBar(
               // 背景消失的动画方式
-              collapseMode: CollapseMode.none,
+              collapseMode: CollapseMode.pin,
               background: Container(
                 color: TLThemes.getProvider(context).primaryColor,
                 child: Container(
                   height: 200,
-                  // android:usesCleartextTraffic="true"
-                  child: CachedNetworkImage(
-                    fit: BoxFit.cover,
-                    imageUrl: 'http://pic1.win4000.com/wallpaper/2019-12-16/5df6ef1080699.jpg',
-                    errorWidget: (context, url, error) => Icon(Icons.error),
-                  ),
+                  color: TLThemes.getProvider(context).primaryColor,
                 ),
               ),
             ),
             bottom: getTabBar(),
           ),
-
-          // SliverPersistentHeader(
-          //   pinned: true,
-          //   delegate: MySliverPersistentHeaderDelegate(
-          //       child: Container(
-          //         child: getTabBar(),
-          //         decoration: BoxDecoration(color: TLThemes.getProvider(context).primaryColor),
-          //         padding: EdgeInsets.only(top: MediaQueryData.fromWindow(window).padding.top),
-          //       ),
-          //       size: Size(double.infinity, 56 + MediaQueryData.fromWindow(window).padding.top)),
-          // ),
         ];
       },
       body: TabBarView(
         physics: NeverScrollableScrollPhysics(),
         controller: _tabController,
         children: tabs.map((String key) {
-          return NewsPageList(key);
+          return NewsItem(key);
         }).toList(),
       ),
     );
   }
 }
 
-class NewsPageList extends BaseStatefulWidget {
+class NewsItem extends BaseStatefulWidget {
   final String name;
 
-  NewsPageList(this.name);
+  NewsItem(this.name);
 
   @override
   State<StatefulWidget> getState() {
-    return NewsPageListState();
+    return NewsItemState();
   }
 }
 
-// 保留各tab的状态
-class NewsPageListState extends BaseFutureStateKeepAlive<NewsPageList> {
-  List news;
-  RefreshController _refreshController;
+class LoadingMoreSource extends LoadingMoreBase<int> {
+  @override
+  Future<bool> loadData([bool isloadMoreAction = false]) {
+    print('---loadData---' + isloadMoreAction.toString());
+    return Future<bool>.delayed(const Duration(seconds: 1), () {
+      int index = this.length;
+      for (int i = 0; i < 10; i++) {
+        add(index + i);
+      }
+      return true;
+    });
+  }
+}
+
+class NewsItemState extends BaseState<NewsItem> {
+  LoadingMoreBase source;
 
   @override
   void initState() {
-    _refreshController = RefreshController();
-    news = [];
+    source = LoadingMoreSource();
     super.initState();
   }
 
-  void _onRefresh() async {
-    await Future.delayed(Duration(seconds: 1));
-    news = news.sublist(0, 12);
-    setState(() {});
-    _refreshController?.refreshCompleted(resetFooterState: true);
-  }
-
-  void _onLoading() async {
-    await Future.delayed(Duration(seconds: 1));
-    news.addAll(news.sublist(0, 12));
-    setState(() {});
-    _refreshController?.loadComplete();
-  }
+  @override
+  bool get wantKeepAlive => true;
 
   @override
-  Widget getContent(BuildContext context) {
-    return SmartRefresher(
-      enablePullDown: true,
-      enablePullUp: true,
-      header: SmartRefresherViews.getHeader(context),
-      footer: SmartRefresherViews.getFooter(context),
-      controller: _refreshController,
-      onRefresh: _onRefresh,
-      onLoading: _onLoading,
-      child: ListView.separated(
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        padding: EdgeInsets.zero,
-        itemCount: news.length,
-        itemBuilder: (BuildContext context, int index) {
-          var item = news[index];
-          return Container(
-            height: 60,
-            padding: EdgeInsets.all(8),
-            child: Text(item ?? ''),
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider(
-            height: 1,
-            thickness: 1,
-            color: Color(0xFFF5F5F5),
-          );
-        },
+  Widget getBody(BuildContext context) {
+    return extended.NestedScrollViewInnerScrollPositionKeyWidget(
+      Key(widget.name),
+      LoadingMoreList<int>(
+        ListConfig<int>(
+            itemBuilder: (BuildContext c, int item, int index) {
+              var item = source[index];
+              return Card(
+                color: Colors.white,
+                margin: EdgeInsets.all(16),
+                child: Container(
+                  height: 80,
+                  child: Text(widget.name + '$item'),
+                  padding: EdgeInsets.all(16),
+                ),
+              );
+            },
+            sourceList: source,
+            indicatorBuilder: (BuildContext context, IndicatorStatus status) {
+              return Container(
+                height: 60,
+                child: Center(child: Text('loading...')),
+              );
+            }),
       ),
     );
-  }
-
-  @override
-  Future loadData() async {
-    for (int i = 0; i < 12; i++) {
-      news.add('${widget.name}${i + 1}');
-    }
-    await Future.delayed(Duration(seconds: 1));
   }
 }

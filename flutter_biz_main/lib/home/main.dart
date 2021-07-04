@@ -20,6 +20,7 @@ class HomePageState extends BaseState {
 
   RefreshController _refreshController;
 
+  int _count = 20;
   List<Widget> getActions(BuildContext context) {
     return [
       getIcon(Icons.baby_changing_station),
@@ -28,6 +29,9 @@ class HomePageState extends BaseState {
       getIcon(Icons.batch_prediction),
     ];
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -55,13 +59,17 @@ class HomePageState extends BaseState {
 
   void _onRefresh() async {
     await Future.delayed(Duration(seconds: 1));
-    setState(() {});
+    setState(() {
+      _count = 20;
+    });
     _refreshController?.refreshCompleted(resetFooterState: true);
   }
 
   void _onLoading() async {
     await Future.delayed(Duration(seconds: 1));
-    setState(() {});
+    setState(() {
+      _count += 20;
+    });
     _refreshController?.loadComplete();
   }
 
@@ -169,7 +177,7 @@ class HomePageState extends BaseState {
                   child: Text('food${index}'),
                 );
               },
-              childCount: 20,
+              childCount: _count,
             ),
           )
         ],

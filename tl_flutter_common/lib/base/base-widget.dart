@@ -12,9 +12,10 @@ abstract class BaseStatefulWidget extends StatefulWidget {
 }
 
 // 基本的StatefulWidget State, no Scaffold
-abstract class BaseState<T extends BaseStatefulWidget> extends State<T> {
+abstract class BaseState<T extends BaseStatefulWidget> extends State<T> with AutomaticKeepAliveClientMixin{
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return getBody(context);
   }
 
@@ -22,6 +23,9 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T> {
 
   @override
   void initState();
+
+  @override
+  bool get wantKeepAlive => false;
 }
 
 // 带有AppBar的state
@@ -85,7 +89,7 @@ abstract class BasePageTitleFutureState<T extends BaseStatefulWidget> extends St
             return Container(
               child: Center(
                 child: Text(
-                  'Loading...',
+                  'loading...',
                   style: TextStyle(fontSize: 32),
                 ),
               ),
@@ -139,14 +143,18 @@ abstract class BaseFutureState<T extends BaseStatefulWidget> extends State<T> {
         } else {
           return Container(
             margin: EdgeInsets.symmetric(vertical: 16),
-            alignment: Alignment.centerLeft,
+            alignment: loadingPosition(),
             child: Text(
-              'Loading...',
+              'loading...',
             ),
           );
         }
       },
     );
+  }
+
+  Alignment loadingPosition(){
+    return Alignment.centerLeft;
   }
 
   Widget getContent(BuildContext context);
@@ -179,7 +187,7 @@ abstract class BaseFutureStateKeepAlive<T extends BaseStatefulWidget> extends St
             margin: EdgeInsets.symmetric(vertical: 16),
             alignment: Alignment.center,
             child: Text(
-              'Loading...',
+              'loading...',
               style: TextStyle(fontSize: 25),
             ),
           );

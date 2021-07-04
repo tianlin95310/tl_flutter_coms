@@ -30,11 +30,16 @@ dependencies:
 
   provider: ^5.0.0
 
+#  下拉刷新
   pull_to_refresh: ^2.0.0
 
-  cached_network_image: ^3.0.0
+  loading_more_list: 4.0.0
 
-  path_provider: 2.0.1
+#  解决bug，tabbarview内部listview滑动问题
+  extended_nested_scroll_view: 3.0.0
+
+#  cached_network_image: ^3.0.0
+#  path_provider: 2.0.1
 
 dev_dependencies:
   flutter_test:
