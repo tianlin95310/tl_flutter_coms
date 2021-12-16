@@ -1,13 +1,10 @@
-import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:tl_flutter_common/main.dart';
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
 import 'package:loading_more_list/loading_more_list.dart';
-
+import 'package:tl_flutter_common/main.dart';
 class NewsPage extends BaseStatefulWidget {
   @override
   State<StatefulWidget> getState() {
@@ -30,6 +27,7 @@ class NewsPageState extends BaseState with SingleTickerProviderStateMixin {
       controller: _tabController,
       isScrollable: true,
       labelColor: Colors.white,
+      // indicatorColor: Colors.transparent,
       tabs: tabs.map((e) => Tab(text: e)).toList(),
     );
   }
@@ -66,12 +64,18 @@ class NewsPageState extends BaseState with SingleTickerProviderStateMixin {
             // 跟随滑动的title
             flexibleSpace: FlexibleSpaceBar(
               // 背景消失的动画方式
-              collapseMode: CollapseMode.pin,
+              collapseMode: CollapseMode.parallax,
               background: Container(
                 color: TLThemes.getProvider(context).primaryColor,
                 child: Container(
                   height: 200,
                   color: TLThemes.getProvider(context).primaryColor,
+                  child: CachedNetworkImage(
+                    fit: BoxFit.cover,
+                    imageUrl:
+                    'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Ff603918fa0ec08fa6443cb2657ee3d6d54fbdaf4.jpg&refer=http%3A%2F%2Fhiphotos.baidu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627545167&t=484457509865f14437174d7959a23305',
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
                 ),
               ),
             ),
@@ -133,6 +137,7 @@ class NewsItemState extends BaseState<NewsItem> {
       Key(widget.name),
       LoadingMoreList<int>(
         ListConfig<int>(
+          physics: BouncingScrollPhysics(),
             itemBuilder: (BuildContext c, int item, int index) {
               var item = source[index];
               return Card(

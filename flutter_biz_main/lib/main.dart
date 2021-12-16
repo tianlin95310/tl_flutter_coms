@@ -4,7 +4,14 @@ import 'package:flutter_biz_main/news/main.dart';
 import 'package:flutter_biz_main/setting/main.dart';
 import 'package:tl_flutter_common/main.dart';
 
-final Map<String, WidgetBuilder> mainRoutes = {'home': (BuildContext context, {arguments}) => MainPage()};
+final Map<String, WidgetBuilder> mainRoutes = {
+  'home': (BuildContext context, {arguments}) => MainPage(),
+};
+
+void main() async {
+  // read app setting data
+  runApp(MyApp({...mainRoutes, ...commonRoutes}, {}, {'theme': 0, 'language': 'en-US'}));
+}
 
 class MainPage extends BaseStatefulWidget {
   MainPage({Key key}) : super(key: key);
@@ -15,7 +22,8 @@ class MainPage extends BaseStatefulWidget {
   }
 }
 
-class _MainPageState extends BaseState<MainPage> with SingleTickerProviderStateMixin {
+class _MainPageState extends BaseState<MainPage>
+    with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
 
   TabController _tabController;
@@ -39,9 +47,7 @@ class _MainPageState extends BaseState<MainPage> with SingleTickerProviderStateM
       body: TabBarView(
         controller: _tabController,
         physics: NeverScrollableScrollPhysics(),
-        children: [
-          HomePage(), NewsPage(), SettingPage()
-        ],
+        children: [HomePage(), NewsPage(), SettingPage()],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,

@@ -36,7 +36,7 @@ class ThemeSettingState extends BasePageTitleState {
                   width: 80,
                   height: 100,
                   child: Card(
-                    color: Colors.blueAccent,
+                    color: Colors.cyanAccent,
                     child: Offstage(
                       offstage: TLThemes.getProvider(context).themeIndex != 0,
                       child: Container(

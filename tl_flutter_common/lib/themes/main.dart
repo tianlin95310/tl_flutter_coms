@@ -9,7 +9,7 @@ class TLThemes with ChangeNotifier {
     notifyListeners();
   }
 
-  get primaryColor => [Colors.blueAccent, Colors.redAccent][_themeIndex];
+  get primaryColor => [Colors.cyanAccent, Colors.redAccent][_themeIndex];
 
   // use this method get a object can refresh Style when listen = true, and notifyListeners is called
   static TLThemes getProvider(BuildContext context, {bool listen = true}) {
@@ -20,33 +20,22 @@ class TLThemes with ChangeNotifier {
 
   ThemeData get theme => [
         ThemeData(
-          primaryColor: Colors.blueAccent,
-          primaryColorDark: Colors.blueAccent,
-          primaryColorLight: Colors.blueAccent,
-          colorScheme: ColorScheme(
-            primary: Colors.blueAccent,
-            primaryVariant: Colors.blueAccent.shade400,
-            secondary: Colors.blueAccent.shade200,
-            secondaryVariant: Colors.blueAccent.shade100,
-            surface: Colors.white,
-            background: Colors.blueAccent.shade50,
-          ),
+          primaryColor: primaryColor,
+          primaryColorDark: primaryColor,
+          primaryColorLight: primaryColor,
+          dividerColor: primaryColor,
+          indicatorColor: primaryColor,
+          // brightness: Brightness.dark, // 影响界面内所有的文字颜色,控件的背景色，前景色
         ),
         ThemeData(
-          primaryColor: Colors.redAccent,
-          primaryColorDark: Colors.redAccent,
-          primaryColorLight: Colors.redAccent,
-          colorScheme: ColorScheme(
-            primary: Colors.redAccent,
-            primaryVariant: Colors.redAccent.shade400,
-            secondary: Colors.redAccent.shade200,
-            secondaryVariant: Colors.redAccent.shade100,
-            surface: Colors.white,
-            background: Colors.blueAccent.shade50,
-          ),
-          splashColor: Colors.redAccent.shade200
+          primaryColor: primaryColor,
+          primaryColorDark: primaryColor,
+          primaryColorLight: primaryColor,
+          dividerColor: primaryColor,
+            indicatorColor: primaryColor,
+          // brightness: Brightness.dark,
         )
       ][_themeIndex];
 
-  Color get textColor => [Colors.blueAccent, Colors.redAccent][_themeIndex];
+  Color get textColor => [Colors.cyanAccent, Colors.redAccent][_themeIndex];
 }

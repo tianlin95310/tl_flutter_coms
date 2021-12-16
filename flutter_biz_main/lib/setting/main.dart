@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tl_flutter_common/main.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 class SettingPage extends BaseStatefulWidget {
   @override
   State<StatefulWidget> getState() {
@@ -20,9 +20,6 @@ class SettingPageState extends BaseState {
               pinned: true,
               // 固定的title
               // title: Text(I18n.getProvider(context).mine),
-              systemOverlayStyle: SystemUiOverlayStyle(
-                  statusBarColor: TLThemes.getProvider(context).primaryColor
-              ),
               backgroundColor: TLThemes.getProvider(context).primaryColor,
               floating: true,
               // 为true是AppBar会自动回弹
@@ -40,12 +37,12 @@ class SettingPageState extends BaseState {
                   child: Container(
                     height: 200,
                     color: TLThemes.getProvider(context).primaryColor,
-                    // child: CachedNetworkImage(
-                    //   fit: BoxFit.cover,
-                    //   imageUrl:
-                    //       'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Ff603918fa0ec08fa6443cb2657ee3d6d54fbdaf4.jpg&refer=http%3A%2F%2Fhiphotos.baidu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627545167&t=484457509865f14437174d7959a23305',
-                    //   errorWidget: (context, url, error) => Icon(Icons.error),
-                    // ),
+                    child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      imageUrl:
+                          'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Ff603918fa0ec08fa6443cb2657ee3d6d54fbdaf4.jpg&refer=http%3A%2F%2Fhiphotos.baidu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627545167&t=484457509865f14437174d7959a23305',
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    ),
                   ),
                 ),
               ),

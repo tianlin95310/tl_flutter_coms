@@ -15,6 +15,9 @@ final Map<String, WidgetBuilder> authRoutes = {
 
 void main() async {
   // read app setting data
-  runApp(MyApp(visitRoutes, authRoutes));
+  runApp(MyApp(visitRoutes, authRoutes, {
+    'theme': 0,
+    'language': 'en-US'
+  }));
 }
 

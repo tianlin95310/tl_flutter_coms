@@ -21,6 +21,7 @@ class HomePageState extends BaseState {
   RefreshController _refreshController;
 
   int _count = 20;
+
   List<Widget> getActions(BuildContext context) {
     return [
       getIcon(Icons.baby_changing_station),
@@ -52,7 +53,9 @@ class HomePageState extends BaseState {
             color: Colors.white,
           ),
         ),
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, 'WidgetsPage');
+        },
       ),
     );
   }
@@ -106,7 +109,8 @@ class HomePageState extends BaseState {
               // 背景消失的动画方式
               collapseMode: CollapseMode.parallax,
               background: Container(
-                padding: EdgeInsets.only(top: MediaQueryData.fromWindow(window).padding.top),
+                padding: EdgeInsets.only(
+                    top: MediaQueryData.fromWindow(window).padding.top),
                 alignment: Alignment.bottomCenter,
                 decoration: BoxDecoration(
                   color: TLThemes.getProvider(context).primaryColor,
@@ -152,7 +156,9 @@ class HomePageState extends BaseState {
               child: Container(
                 decoration: BoxDecoration(
                     color: TLThemes.getProvider(context).primaryColor,
-                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(32), bottomRight: Radius.circular(32))),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(32),
+                        bottomRight: Radius.circular(32))),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,

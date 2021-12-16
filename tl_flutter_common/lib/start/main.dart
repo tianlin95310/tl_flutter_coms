@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:tl_flutter_common/main.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tl_flutter_common/i18n/tl-locale-delegate.dart';
+import 'package:tl_flutter_common/main.dart';
 
 final Map<String, WidgetBuilder> commonRoutes = {
   'NotFoundPage': (BuildContext context, { arguments }) => NotFoundPage(),
@@ -15,23 +14,29 @@ class MyApp extends StatelessWidget {
   final Map<String, WidgetBuilder> visitRoutes;
   final Map<String, WidgetBuilder> authRoutes;
 
-  MyApp(this.visitRoutes, this.authRoutes);
+  final Map config;
+
+  MyApp(this.visitRoutes, this.authRoutes, this.config);
 
   @override
   Widget build(BuildContext context) {
     print('MyApp build');
-    final SystemUiOverlayStyle _style = SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    );
-    SystemChrome.setSystemUIOverlayStyle(_style);
+    int theme = config['theme'] ?? 1;
+    String language = config['language'] ?? 'zh-CN';
 
     TLThemes themes = TLThemes();
-
+    themes.changeTheme(theme);
+    I18n i18n = I18n(Locale("zh", 'CN'));
+    if (language == 'zh-CN') {
+      i18n = I18n(Locale("zh", 'CN'));
+    } else if (language == 'en-US') {
+      i18n = I18n(Locale("en", 'US'));
+    }
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: themes),
         ChangeNotifierProvider(create: (BuildContext context){
-          return I18n(Locale("zh", 'CN'));
+          return i18n;
         },)
       ],
       builder: (BuildContext context, Widget child){
