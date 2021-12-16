@@ -41,6 +41,8 @@ build/
 .flutter-plugins
 .flutter-plugins-dependencies
 
+local.properties
+
 # Symbolication related
 app.*.symbols
 

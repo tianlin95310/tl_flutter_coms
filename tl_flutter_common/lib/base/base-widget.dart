@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:tl_flutter_common/main.dart';
 
 abstract class BaseStatefulWidget extends StatefulWidget {
   @override
@@ -47,7 +49,10 @@ abstract class BasePageTitleState<T extends BaseStatefulWidget> extends State<T>
     return AppBar(
       title: Text(getTitle(context)),
       actions: getActions(context),
-      brightness: Brightness.dark,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: TLThemes.getProvider(context).primaryColor
+      ),
+      backgroundColor: TLThemes.getProvider(context).primaryColor,
     );
   }
 

@@ -91,7 +91,7 @@ class HomePageState extends BaseState {
             // 控制折叠后的Tabbar固定在顶部
             pinned: true,
             // 固定的title
-            brightness: Brightness.dark,
+            backgroundColor: TLThemes.getProvider(context).primaryColor,
             // title: Text(I18n.getProvider(context).main),
             // actions: getActions(context),
             // floating: true,

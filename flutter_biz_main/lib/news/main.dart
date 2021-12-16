@@ -56,7 +56,7 @@ class NewsPageState extends BaseState with SingleTickerProviderStateMixin {
             pinned: true,
             // 固定的title
             // title: Text(I18n.getProvider(context).news),
-            brightness: Brightness.dark,
+            backgroundColor: TLThemes.getProvider(context).primaryColor,
             // floating: true,
             // 为true是AppBar会自动回弹
             // snap: true,

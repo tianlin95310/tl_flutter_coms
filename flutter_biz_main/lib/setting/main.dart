@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tl_flutter_common/main.dart';
 
 class SettingPage extends BaseStatefulWidget {
@@ -19,7 +20,10 @@ class SettingPageState extends BaseState {
               pinned: true,
               // 固定的title
               // title: Text(I18n.getProvider(context).mine),
-              brightness: Brightness.dark,
+              systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: TLThemes.getProvider(context).primaryColor
+              ),
+              backgroundColor: TLThemes.getProvider(context).primaryColor,
               floating: true,
               // 为true是AppBar会自动回弹
               // snap: true,
