@@ -9,3 +9,7 @@ For help getting started with Flutter, view our online
 
 For instructions integrating Flutter modules to your existing applications,
 see the [add-to-app documentation](https://flutter.dev/docs/development/add-to-app).
+
+#export PUB_HOSTED_URL=https://pub.flutter-io.cn
+
+#export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
