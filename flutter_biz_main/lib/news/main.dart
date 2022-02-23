@@ -1,10 +1,14 @@
-
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_more_list/loading_more_list.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tl_flutter_common/main.dart';
+
+// extended_nested_scroll_view to fix 21868
+
+// https://github.com/flutter/flutter/issues/21868
+// https://github.com/flutter/flutter/issues/81619
+
 class NewsPage extends BaseStatefulWidget {
   @override
   State<StatefulWidget> getState() {
@@ -22,13 +26,19 @@ class NewsPageState extends BaseState with SingleTickerProviderStateMixin {
     _tabController = TabController(length: tabs.length, vsync: this);
   }
 
-  TabBar getTabBar() {
-    return TabBar(
-      controller: _tabController,
-      isScrollable: true,
-      labelColor: Colors.white,
-      // indicatorColor: Colors.transparent,
-      tabs: tabs.map((e) => Tab(text: e)).toList(),
+  Widget getTabBar() {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(kToolbarHeight),
+      child: Container(
+        color: TLThemes.getProvider(context).textColor.withBlue(100),
+        child: TabBar(
+          controller: _tabController,
+          isScrollable: true,
+          labelColor: Colors.black,
+          // indicatorColor: Colors.transparent,
+          tabs: tabs.map((e) => Tab(text: e)).toList(),
+        ),
+      ),
     );
   }
 
@@ -38,12 +48,11 @@ class NewsPageState extends BaseState with SingleTickerProviderStateMixin {
   }
 
   Widget way(BuildContext context) {
-    return extended.NestedScrollView(
+    return ExtendedNestedScrollView(
+      onlyOneScrollInBody: true,
       pinnedHeaderSliverHeightBuilder: () {
+        print('MediaQuery.of(context).padding' + MediaQuery.of(context).padding.toString());
         return MediaQuery.of(context).padding.top + kToolbarHeight;
-      },
-      innerScrollPositionKeyBuilder: () {
-        return Key(tabs[_tabController.index]);
       },
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
         return [
@@ -59,7 +68,7 @@ class NewsPageState extends BaseState with SingleTickerProviderStateMixin {
             // 为true是AppBar会自动回弹
             // snap: true,
             /// SliverAppBar展开的高度
-            expandedHeight: 200,
+            expandedHeight: 160,
             shadowColor: Colors.transparent,
             // 跟随滑动的title
             flexibleSpace: FlexibleSpaceBar(
@@ -68,14 +77,9 @@ class NewsPageState extends BaseState with SingleTickerProviderStateMixin {
               background: Container(
                 color: TLThemes.getProvider(context).primaryColor,
                 child: Container(
-                  height: 200,
+                  height: 160,
                   color: TLThemes.getProvider(context).primaryColor,
-                  child: CachedNetworkImage(
-                    fit: BoxFit.cover,
-                    imageUrl:
-                    'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Ff603918fa0ec08fa6443cb2657ee3d6d54fbdaf4.jpg&refer=http%3A%2F%2Fhiphotos.baidu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627545167&t=484457509865f14437174d7959a23305',
-                    errorWidget: (context, url, error) => Icon(Icons.error),
-                  ),
+                  child: Center(child: Text('use ExtendedNestedScrollView to solve scroll bug')),
                 ),
               ),
             ),
@@ -94,6 +98,7 @@ class NewsPageState extends BaseState with SingleTickerProviderStateMixin {
   }
 }
 
+
 class NewsItem extends BaseStatefulWidget {
   final String name;
 
@@ -105,27 +110,30 @@ class NewsItem extends BaseStatefulWidget {
   }
 }
 
-class LoadingMoreSource extends LoadingMoreBase<int> {
-  @override
-  Future<bool> loadData([bool isloadMoreAction = false]) {
-    print('---loadData---' + isloadMoreAction.toString());
-    return Future<bool>.delayed(const Duration(seconds: 1), () {
-      int index = this.length;
-      for (int i = 0; i < 10; i++) {
-        add(index + i);
-      }
-      return true;
-    });
-  }
-}
-
 class NewsItemState extends BaseState<NewsItem> {
-  LoadingMoreBase source;
+  RefreshController _refreshController;
+  int _count = 20;
+
+  void _onRefresh() async {
+    await Future.delayed(Duration(seconds: 1));
+    setState(() {
+      _count = 20;
+    });
+    _refreshController?.refreshCompleted(resetFooterState: true);
+  }
+
+  void _onLoading() async {
+    await Future.delayed(Duration(seconds: 1));
+    setState(() {
+      _count += 20;
+    });
+    _refreshController?.loadComplete();
+  }
 
   @override
   void initState() {
-    source = LoadingMoreSource();
     super.initState();
+    _refreshController = RefreshController();
   }
 
   @override
@@ -133,30 +141,28 @@ class NewsItemState extends BaseState<NewsItem> {
 
   @override
   Widget getBody(BuildContext context) {
-    return extended.NestedScrollViewInnerScrollPositionKeyWidget(
-      Key(widget.name),
-      LoadingMoreList<int>(
-        ListConfig<int>(
-          physics: BouncingScrollPhysics(),
-            itemBuilder: (BuildContext c, int item, int index) {
-              var item = source[index];
-              return Card(
-                color: Colors.white,
-                margin: EdgeInsets.all(16),
-                child: Container(
-                  height: 80,
-                  child: Text(widget.name + '$item'),
-                  padding: EdgeInsets.all(16),
-                ),
-              );
-            },
-            sourceList: source,
-            indicatorBuilder: (BuildContext context, IndicatorStatus status) {
-              return Container(
-                height: 60,
-                child: Center(child: Text('loading...')),
-              );
-            }),
+    print('MediaQuery.of(context).padding' + MediaQuery.of(context).padding.toString());
+    return SmartRefresher(
+      enablePullDown: true,
+      enablePullUp: true,
+      header: SmartRefresherViews.getHeader(context),
+      footer: SmartRefresherViews.getFooter(context),
+      controller: _refreshController,
+      onRefresh: _onRefresh,
+      onLoading: _onLoading,
+      child: ListView.builder(
+        itemCount: _count,
+        itemBuilder: (BuildContext c, int index) {
+          return Card(
+            color: Colors.white,
+            margin: EdgeInsets.all(16),
+            child: Container(
+              height: 80,
+              child: Text(widget.name + '$index'),
+              padding: EdgeInsets.all(16),
+            ),
+          );
+        },
       ),
     );
   }

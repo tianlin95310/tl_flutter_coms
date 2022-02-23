@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tl_flutter_common/main.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:tl_flutter_common/main.dart';
 
 import '../components.dart';
 
@@ -120,6 +120,25 @@ class HomePageState extends BaseState {
                   children: [
                     Container(
                       height: 60,
+                      margin: EdgeInsets.only(top: 10),
+                      child: Stack(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              getIcon(Icons.cake_rounded),
+                              getIcon(Icons.calculate_rounded),
+                              getIcon(Icons.calendar_today),
+                              getIcon(Icons.calendar_view_day),
+                            ],
+                          ),
+                          Center(child: Text('SmartRefresher + CustomScrollView')),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: 60,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -128,20 +147,6 @@ class HomePageState extends BaseState {
                           getIcon(Icons.access_time_rounded),
                           getIcon(Icons.addchart),
                           getIcon(Icons.account_balance_wallet_outlined),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: 60,
-                      margin: EdgeInsets.only(top: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          getIcon(Icons.cake_rounded),
-                          getIcon(Icons.calculate_rounded),
-                          getIcon(Icons.calendar_today),
-                          getIcon(Icons.calendar_view_day),
                         ],
                       ),
                     ),

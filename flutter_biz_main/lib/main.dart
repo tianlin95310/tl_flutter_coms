@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_biz_main/cart/main.dart';
 import 'package:flutter_biz_main/home/main.dart';
 import 'package:flutter_biz_main/news/main.dart';
+import 'package:flutter_biz_main/product/main.dart';
 import 'package:flutter_biz_main/setting/main.dart';
 import 'package:tl_flutter_common/main.dart';
 
@@ -31,7 +33,7 @@ class _MainPageState extends BaseState<MainPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 5, vsync: this);
   }
 
   @override
@@ -47,7 +49,7 @@ class _MainPageState extends BaseState<MainPage>
       body: TabBarView(
         controller: _tabController,
         physics: NeverScrollableScrollPhysics(),
-        children: [HomePage(), NewsPage(), SettingPage()],
+        children: [HomePage(), NewsPage(), CartPage(), ProductPage(), SettingPage()],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -59,6 +61,12 @@ class _MainPageState extends BaseState<MainPage>
           });
         },
         selectedItemColor: TLThemes.getProvider(context).primaryColor,
+        selectedLabelStyle: TextStyle(color: TLThemes.getProvider(context).primaryColor, fontSize: 12),
+        unselectedItemColor: Colors.grey,
+        unselectedLabelStyle: TextStyle(color: Colors.grey, fontSize: 12),
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        landscapeLayout: BottomNavigationBarLandscapeLayout.spread,
         items: [
           BottomNavigationBarItem(
             label: I18n.of(context).main,
@@ -67,6 +75,14 @@ class _MainPageState extends BaseState<MainPage>
           BottomNavigationBarItem(
             label: I18n.of(context).news,
             icon: Icon(Icons.message),
+          ),
+          BottomNavigationBarItem(
+            label: I18n.of(context).cart,
+            icon: Icon(Icons.car_rental),
+          ),
+          BottomNavigationBarItem(
+            label: I18n.of(context).product,
+            icon: Icon(Icons.production_quantity_limits),
           ),
           BottomNavigationBarItem(
             label: I18n.of(context).mine,

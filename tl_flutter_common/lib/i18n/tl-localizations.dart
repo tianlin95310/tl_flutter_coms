@@ -16,6 +16,9 @@ class I18n with ChangeNotifier {
   String get languageSetting => $('languageSetting');
   String get chinese => $('chinese');
   String get english => $('english');
+  String get product => $('product');
+
+  String get cart => $('cart');
 
   void setLocale(Locale locale) {
     this._locale = locale;

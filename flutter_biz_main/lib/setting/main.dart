@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:tl_flutter_common/main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:tl_flutter_common/main.dart';
 class SettingPage extends BaseStatefulWidget {
   @override
   State<StatefulWidget> getState() {
