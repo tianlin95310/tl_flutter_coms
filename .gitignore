@@ -40,7 +40,8 @@ Icon?
 .tags*
 
 build/
-.android/
+.gradle/
+
 .ios/
 .flutter-plugins
 .flutter-plugins-dependencies

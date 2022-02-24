@@ -1,0 +1,79 @@
+def flutterPluginVersion = 'managed'
+
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        debug {
+            storeFile file('..\\debug.jks')
+            storePassword '111111'
+            keyAlias 'six-two'
+            keyPassword '222222'
+        }
+        release {
+            storeFile file('..\\litian.jks')
+            storePassword '123456'
+            keyAlias 'reverse'
+            keyPassword '654321'
+        }
+    }
+    compileSdkVersion 30
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        applicationId "com.tl.tl_flutter_coms.host"
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        profile {
+            initWith debug
+        }
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.release
+            minifyEnabled true
+        }
+    }
+    flavorDimensions 'env'
+    productFlavors {
+        dev {
+            dimension 'env'
+            applicationIdSuffix 'dev'
+            versionName 'Flutter DEV'
+        }
+        sit {
+            dimension 'env'
+            applicationIdSuffix 'sit'
+            versionName 'Flutter DEV'
+        }
+        uat {
+            dimension 'env'
+            applicationIdSuffix 'uat'
+            versionName 'Flutter DEV'
+        }
+        prod {
+            dimension 'env'
+            versionName 'Flutter'
+        }
+    }
+
+}
+buildDir = new File(rootProject.projectDir, "../build/host")
+dependencies {
+    implementation project(':flutter')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+}
