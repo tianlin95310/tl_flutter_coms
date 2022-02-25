@@ -13,7 +13,7 @@ abstract class BaseStatefulWidget extends StatefulWidget {
   BaseStatefulWidget({Key key}) : super(key: key);
 }
 
-// 基本的StatefulWidget State, no Scaffold, no appBar
+// 基本的StatefulWidget State, no Scaffold, no appBar, with KeepAlive
 abstract class BaseState<T extends BaseStatefulWidget> extends State<T> with AutomaticKeepAliveClientMixin{
   @override
   Widget build(BuildContext context) {

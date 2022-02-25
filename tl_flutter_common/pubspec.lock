@@ -357,6 +357,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.4.2"
+  tl_flutter_custom_ui:
+    dependency: "direct dev"
+    description:
+      path: "../tl_flutter_custom_ui"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   typed_data:
     dependency: transitive
     description:

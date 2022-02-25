@@ -26,7 +26,7 @@ class SmartRefresherViews {
     );
   }
 
-  static getHeader(BuildContext context) {
+  static Widget getHeader(BuildContext context) {
     return CustomHeader(
       builder: (BuildContext context, RefreshStatus mode) {
         Widget body;

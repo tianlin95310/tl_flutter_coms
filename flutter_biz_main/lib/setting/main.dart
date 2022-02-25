@@ -25,6 +25,10 @@ class SettingPageState extends BaseState {
               // snap: true,
               /// SliverAppBar展开的高度
               expandedHeight: 200,
+              leading: GestureDetector(
+                onTap: (){},
+                child: Icon(Icons.manage_search),
+              ),
               flexibleSpace: FlexibleSpaceBar(
                 // 背景消失的动画方式
                 collapseMode: CollapseMode.none,

@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:tl_flutter_common/i18n/tl-locale-delegate.dart';
 import 'package:tl_flutter_common/main.dart';
+import 'package:tl_flutter_common/widget/image_cut_view.dart';
+import 'package:tl_flutter_common/widget/page-not-found.dart';
 
 final Map<String, WidgetBuilder> commonRoutes = {
   'NotFoundPage': (BuildContext context, { arguments }) => NotFoundPage(),
+  'ImageCutView': (BuildContext context, { arguments }) => ImageCutView()
 };
 
 class MyApp extends StatelessWidget {

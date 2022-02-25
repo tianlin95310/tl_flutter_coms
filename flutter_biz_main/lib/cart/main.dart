@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tl_flutter_common/main.dart';
-
+import 'package:tl_flutter_common/widget/smart-refresher-views.dart';
 class CartPage extends BaseStatefulWidget {
   @override
   State<StatefulWidget> getState() {
@@ -22,9 +22,6 @@ class CartPageState extends BaseState with SingleTickerProviderStateMixin {
     _tabController = TabController(length: tabs.length, vsync: this);
     _refreshController = RefreshController();
   }
-
-  @override
-  bool get wantKeepAlive => super.wantKeepAlive;
 
   void _onRefresh() async {
     await Future.delayed(Duration(seconds: 1));

@@ -43,9 +43,6 @@ class _MainPageState extends BaseState<MainPage>
     print(MediaQuery.of(context).size);
     return Scaffold(
       backgroundColor: Colors.white,
-      // 保留page的状态
-      // body: IndexedStack(children: [HomePage(), NewsPage(), SettingPage()], index: _currentIndex,),
-      // body: [HomePage(), NewsPage(), SettingPage()][_currentIndex],
       body: TabBarView(
         controller: _tabController,
         physics: NeverScrollableScrollPhysics(),
@@ -66,7 +63,7 @@ class _MainPageState extends BaseState<MainPage>
         unselectedLabelStyle: TextStyle(color: Colors.grey, fontSize: 12),
         showSelectedLabels: true,
         showUnselectedLabels: true,
-        landscapeLayout: BottomNavigationBarLandscapeLayout.spread,
+        type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
             label: I18n.of(context).main,

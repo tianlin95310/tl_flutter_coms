@@ -8,6 +8,13 @@ class WidgetsPage extends BaseStatefulWidget {
 }
 
 class WidgetsState extends BasePageTitleState {
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget getBody(BuildContext context) {
     return Container(
@@ -32,30 +39,50 @@ class WidgetsState extends BasePageTitleState {
                 height: 100,
               ),
             ),
-            BottomNavigationBar(items: [
-              BottomNavigationBarItem(label: 'tab1', icon: Icon(Icons.accessibility)),
-              BottomNavigationBarItem(label: 'tab2', icon: Icon(Icons.cabin))
-            ]),
+            BottomNavigationBar(
+              currentIndex: _currentIndex,
+              showUnselectedLabels: true,
+              showSelectedLabels: true,
+              unselectedItemColor: Colors.grey,
+              selectedItemColor: Colors.black,
+              type: BottomNavigationBarType.fixed,
+              items: [
+                BottomNavigationBarItem(label: 'tab1', icon: Icon(Icons.accessibility)),
+                BottomNavigationBarItem(label: 'tab2', icon: Icon(Icons.baby_changing_station)),
+                BottomNavigationBarItem(label: 'tab3', icon: Icon(Icons.cabin)),
+                BottomNavigationBarItem(label: 'tab4', icon: Icon(Icons.dangerous)),
+                BottomNavigationBarItem(label: 'tab5', icon: Icon(Icons.eight_k))
+              ],
+              onTap: (int index) {
+                setState(() {
+                  this._currentIndex = index;
+                });
+              },
+            ),
             Card(
-              child: ButtonBar(children: [
-                TextButton(child: Text('按钮1'),),
-                OutlinedButton(onPressed: (){}, child: Text('按钮2')),
-                FloatingActionButton(onPressed: (){}),
-                IconButton(onPressed: (){}, icon: Icon(Icons.add)),
-                ElevatedButton(onPressed: (){}, child: Text('ElevatedButton'))
-                // RaisedButton(onPressed: onPressed)
-                // FlatButton(onPressed: onPressed, child: child)
-              ],),
+              child: ButtonBar(
+                children: [
+                  TextButton(
+                    child: Text('按钮1'),
+                  ),
+                  OutlinedButton(onPressed: () {}, child: Text('按钮2')),
+                  FloatingActionButton(onPressed: () {}),
+                  IconButton(onPressed: () {}, icon: Icon(Icons.add)),
+                  ElevatedButton(onPressed: () {}, child: Text('ElevatedButton'))
+                  // RaisedButton(onPressed: onPressed)
+                  // FlatButton(onPressed: onPressed, child: child)
+                ],
+              ),
             ),
             Card(
               child: Column(
                 children: [
                   Row(
                     children: [
-                      Checkbox(value: true, onChanged: (value){}),
-                      Radio(value: 1, groupValue: 1, onChanged: (value){}),
-                      Radio(value: 2, groupValue: 1, onChanged: (value){}),
-                      Switch(value: true, onChanged: (value){})
+                      Checkbox(value: true, onChanged: (value) {}),
+                      Radio(value: 1, groupValue: 1, onChanged: (value) {}),
+                      Radio(value: 2, groupValue: 1, onChanged: (value) {}),
+                      Switch(value: true, onChanged: (value) {})
                     ],
                   )
                 ],
@@ -63,8 +90,13 @@ class WidgetsState extends BasePageTitleState {
             ),
             Chip(label: Text('用户名')),
             ClipOval(child: Text('疑是地上霜'), clipBehavior: Clip.hardEdge),
-            CupertinoActivityIndicator(animating: true,),
-            CupertinoButton(child: Text('Ios风格按钮'), onPressed: (){},),
+            CupertinoActivityIndicator(
+              animating: true,
+            ),
+            CupertinoButton(
+              child: Text('Ios风格按钮'),
+              onPressed: () {},
+            ),
             CupertinoNavigationBar(
               leading: Icon(Icons.arrow_back_ios),
               trailing: Text('FF'),
@@ -73,26 +105,62 @@ class WidgetsState extends BasePageTitleState {
             Card(
               child: Column(
                 children: [
-                  CupertinoSlider(value: 10, onChanged: (value){}, min: 0, max: 100,),
-                  CupertinoSwitch(value: true, onChanged: (value){}),
-                  Row(children: [
-                    Slider(value: 20, onChanged: (value){}, min: 10, max: 90,)
-                  ],)
+                  CupertinoSlider(
+                    value: 10,
+                    onChanged: (value) {},
+                    min: 0,
+                    max: 100,
+                  ),
+                  CupertinoSwitch(value: true, onChanged: (value) {}),
+                  Row(
+                    children: [
+                      Slider(
+                        value: 20,
+                        onChanged: (value) {},
+                        min: 10,
+                        max: 90,
+                      )
+                    ],
+                  )
                 ],
               ),
             ),
-            CupertinoTabBar(items: [
-              BottomNavigationBarItem(label: 'tab1', icon: Icon(Icons.accessibility)),
-              BottomNavigationBarItem(label: 'tab2', icon: Icon(Icons.cabin))
-            ]),
+            CupertinoTabBar(
+              currentIndex: _currentIndex,
+              items: [
+                BottomNavigationBarItem(label: 'tab1', icon: Icon(Icons.accessibility)),
+                BottomNavigationBarItem(label: 'tab2', icon: Icon(Icons.baby_changing_station)),
+                BottomNavigationBarItem(label: 'tab3', icon: Icon(Icons.cabin)),
+                BottomNavigationBarItem(label: 'tab4', icon: Icon(Icons.dangerous)),
+                BottomNavigationBarItem(label: 'tab5', icon: Icon(Icons.eight_k))
+              ],
+              onTap: (int index) {
+                setState(() {
+                  this._currentIndex = index;
+                });
+              },
+            ),
             // Dismissible(key: Key('sss'), child: Container(width: 80, height: 80, color: Colors.red,), onDismissed: (DismissDirection direction){},),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Divider(height: 1,thickness: 1,),
+              child: Divider(
+                height: 1,
+                thickness: 1,
+              ),
             ),
-            LinearProgressIndicator(value: 20, ),
+            LinearProgressIndicator(
+              value: 20,
+            ),
             // RawKeyboardListener(focusNode: focusNode, child: child),
-            Scrollbar(child: Container(width: 1000,height: 30, child: Text('1234567890qwertyuiopasdfghjklzxcvbnm1234567890qwertyuiopasdfghjklzxcvbnm1234567890qwertyuiopasdfghjklzxcvbnm'),))
+            Scrollbar(
+              scrollbarOrientation: ScrollbarOrientation.right,
+              child: Container(
+                width: 1000,
+                height: 30,
+                child: Text('1234567890qwertyuiopasdfghjklzxcvbnm1234567890qwertyuiopasdfghjklzxcvbnm1234567890qwertyuiopasdfghjklzxcvbnm'),
+              ),
+              controller: ScrollController(),
+            )
           ],
         ),
       ),

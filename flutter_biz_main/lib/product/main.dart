@@ -9,7 +9,7 @@ class ProductPage extends BaseStatefulWidget {
   }
 }
 
-class ProductPageState extends BaseState with SingleTickerProviderStateMixin {
+class ProductPageState extends BasePageTitleState with SingleTickerProviderStateMixin {
   TabController _tabController;
   List<String> tabs = ['新闻', '体育', '财经', '娱乐', '科技', '汽车', '视频', '房产', '游戏'];
 
@@ -33,37 +33,30 @@ class ProductPageState extends BaseState with SingleTickerProviderStateMixin {
   Widget getBody(BuildContext context) {
     return Column(
       children: [
-        Padding(padding: MediaQuery.of(context).padding),
+        getTabBar(),
         Expanded(
-          child: Column(
-            children: [
-              getTabBar(),
-              Expanded(
-                child: TabBarView(
-                  physics: NeverScrollableScrollPhysics(),
-                  controller: _tabController,
-                  children: tabs.map((String key) {
-                    // PageStorage即可实现保留滚动外置,without NestedScrollView
-                    return ListView.builder(
-                      key: PageStorageKey(key),
-                      padding: EdgeInsets.zero,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Card(
-                          color: Colors.white,
-                          margin: EdgeInsets.all(16),
-                          child: Container(
-                            height: 80,
-                            child: Text(key + '$index'),
-                            padding: EdgeInsets.all(16),
-                          ),
-                        );
-                      },
-                      itemCount: 20,
-                    );
-                  }).toList(),
-                ),
-              ),
-            ],
+          child: TabBarView(
+            physics: NeverScrollableScrollPhysics(),
+            controller: _tabController,
+            children: tabs.map((String key) {
+              // PageStorage即可实现保留滚动外置,without NestedScrollView
+              return ListView.builder(
+                key: PageStorageKey(key),
+                padding: EdgeInsets.zero,
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    color: Colors.white,
+                    margin: EdgeInsets.all(16),
+                    child: Container(
+                      height: 80,
+                      child: Text(key + '$index'),
+                      padding: EdgeInsets.all(16),
+                    ),
+                  );
+                },
+                itemCount: 20,
+              );
+            }).toList(),
           ),
         ),
       ],
