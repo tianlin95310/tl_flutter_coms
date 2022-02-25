@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tl_flutter_common/main.dart';
 
 class ThemeSetting extends BaseStatefulWidget {
-  final Map arguments;
-
-  ThemeSetting(this.arguments);
-
   @override
   State<StatefulWidget> getState() {
     return ThemeSettingState();
@@ -21,6 +17,8 @@ class ThemeSettingState extends BasePageTitleState {
   @override
   Widget getBody(BuildContext context) {
     print('ThemeSetting 刷新');
+    // 通过此种方式也能获取到参数，但是取值时机存在限制，需要context
+    print(ModalRoute.of(context).settings.arguments);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Column(

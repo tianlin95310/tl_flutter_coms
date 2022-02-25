@@ -7,7 +7,7 @@ import 'package:flutter_biz_main/setting/main.dart';
 import 'package:tl_flutter_common/main.dart';
 
 final Map<String, WidgetBuilder> mainRoutes = {
-  'home': (BuildContext context, {arguments}) => MainPage(),
+  'home': (BuildContext context) => MainPage(),
 };
 
 void main() async {

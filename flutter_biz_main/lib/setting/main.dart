@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tl_flutter_common/main.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:tl_flutter_common/utils/image-convert-utils.dart';
 class SettingPage extends BaseStatefulWidget {
   @override
   State<StatefulWidget> getState() {
@@ -25,16 +27,21 @@ class SettingPageState extends BaseState {
               // snap: true,
               /// SliverAppBar展开的高度
               expandedHeight: 200,
-              leading: GestureDetector(
-                onTap: (){},
-                child: Icon(Icons.manage_search),
-              ),
               flexibleSpace: FlexibleSpaceBar(
                 // 背景消失的动画方式
                 collapseMode: CollapseMode.none,
                 titlePadding: EdgeInsetsDirectional.only(start: 16, bottom: 16),
                 // 跟随滑动的title
-                title: Text(I18n.getProvider(context).mine),
+                title: GestureDetector(
+                  onTap: () async {
+                    final ImagePicker _picker = ImagePicker();
+                    XFile image = await _picker.pickImage(source: ImageSource.gallery);
+                    Navigator.pushNamed(context, 'ImageCutView', arguments: {
+                      'img': await ImageUtils.loadByXFile(image)
+                    });
+                  },
+                  child: Icon(Icons.manage_search, color: Colors.white,),
+                ),
                 background: Container(
                   color: TLThemes.getProvider(context).primaryColor,
                   child: Container(
@@ -59,7 +66,7 @@ class SettingPageState extends BaseState {
             ListTile(
               title: Text(I18n.getProvider(context).themeSetting),
               onTap: () {
-                Navigator.pushNamed(context, 'ThemeSetting', arguments: {'id': 1});
+                Navigator.pushNamed(context, 'ThemeSetting');
               },
             ),
             Divider(

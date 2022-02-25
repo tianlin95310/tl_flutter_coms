@@ -6,11 +6,11 @@ import 'package:flutter_biz_setting/main.dart';
 
 final Map<String, WidgetBuilder> visitRoutes = {
   ...mainRoutes,
-  ...commonRoutes
 };
 
 final Map<String, WidgetBuilder> authRoutes = {
   ...settingRoutes,
+  ...commonRoutes
 };
 
 void main() async {

@@ -4,12 +4,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tl_flutter_common/main.dart';
-import 'package:tl_flutter_common/widget/image_cut_view.dart';
+import 'package:tl_flutter_common/widget/image-cut-view.dart';
 import 'package:tl_flutter_common/widget/page-not-found.dart';
 
 final Map<String, WidgetBuilder> commonRoutes = {
-  'NotFoundPage': (BuildContext context, { arguments }) => NotFoundPage(),
-  'ImageCutView': (BuildContext context, { arguments }) => ImageCutView()
+  'NotFoundPage': (BuildContext context) => NotFoundPage(),
+  'ImageCutView': (BuildContext context, { arguments }) => ImageCutView(arguments: arguments)
 };
 
 class MyApp extends StatelessWidget {
@@ -37,14 +37,16 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: themes),
-        ChangeNotifierProvider(create: (BuildContext context){
-          return i18n;
-        },)
+        ChangeNotifierProvider(
+          create: (BuildContext context) {
+            return i18n;
+          },
+        )
       ],
-      builder: (BuildContext context, Widget child){
+      builder: (BuildContext context, Widget child) {
         print('MultiProvider build');
         return Consumer<I18n>(
-          builder: (BuildContext ctx, I18n localizations, Widget child){
+          builder: (BuildContext ctx, I18n localizations, Widget child) {
             print('---TlLocalizations Consumed---');
             return MaterialApp(
               title: 'Flutter Demo',
@@ -60,12 +62,21 @@ class MyApp extends StatelessWidget {
                 print('---onGenerateRoute---');
                 print(settings?.toString());
                 String routeName = settings.name;
-                WidgetBuilder builder = authRoutes[routeName];
+                Function builder = authRoutes[routeName];
                 if (builder != null) {
-                  return CupertinoPageRoute(
+                  if (settings.arguments != null) {
+                    return CupertinoPageRoute(
                       settings: settings,
-                      builder: builder
-                  );
+                      builder: (BuildContext context){
+                        return builder(context, arguments: settings.arguments);
+                      },
+                    );
+                  } else {
+                    return CupertinoPageRoute(
+                      settings: settings,
+                      builder: builder,
+                    );
+                  }
                 } else {
                   // when run this, it will call onUnknownRoute later
                   return null;
@@ -74,11 +85,8 @@ class MyApp extends StatelessWidget {
               onUnknownRoute: (RouteSettings settings) {
                 print('---onUnknownRoute---');
                 print(settings.toString());
-                WidgetBuilder builder = visitRoutes['NotFoundPage'];
-                return CupertinoPageRoute(
-                    settings: settings,
-                    builder: builder
-                );
+                WidgetBuilder builder = authRoutes['NotFoundPage'];
+                return CupertinoPageRoute(settings: settings, builder: builder);
               },
               locale: localizations.locale,
               localizationsDelegates: const [
@@ -88,7 +96,7 @@ class MyApp extends StatelessWidget {
                 TlLocalizationsDelegate.delegate,
                 RefreshLocalizations.delegate,
               ],
-              localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales){
+              localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
                 print('---localeResolutionCallback---');
                 print(locale?.languageCode);
                 if (locale == null) {
@@ -100,10 +108,7 @@ class MyApp extends StatelessWidget {
                   return locale;
                 }
               },
-              supportedLocales: [
-                Locale("en"),
-                Locale("zh")
-              ],
+              supportedLocales: [Locale("en"), Locale("zh")],
             );
           },
         );

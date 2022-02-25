@@ -10,8 +10,8 @@ import 'package:tl_flutter_common/main.dart';
 part 'widget/widgets.dart';
 
 final Map<String, WidgetBuilder> settingRoutes = {
-  'ThemeSetting': (BuildContext context, {arguments}) => ThemeSetting(arguments),
-  'LanguageSetting': (BuildContext context, {arguments}) => LanguageSetting(),
-  'AboutUs': (BuildContext context, {arguments}) => AboutUs(),
-  'WidgetsPage': (BuildContext context, { arguments }) => WidgetsPage(),
+  'ThemeSetting': (BuildContext context) => ThemeSetting(),
+  'LanguageSetting': (BuildContext context) => LanguageSetting(),
+  'AboutUs': (BuildContext context) => AboutUs(),
+  'WidgetsPage': (BuildContext context) => WidgetsPage(),
 };
