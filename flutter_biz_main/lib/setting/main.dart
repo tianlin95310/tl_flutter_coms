@@ -26,8 +26,7 @@ class SettingPageState extends BaseState {
               // 控制折叠后的Tabbar固定在顶部
               pinned: true,
               // 固定的title
-              // title: Text(I18n.getProvider(context).mine),
-              backgroundColor: Colors.redAccent,
+              backgroundColor: TLThemes.getProvider(context).primaryColor,
               floating: true,
               // 为true是AppBar会自动回弹
               // snap: true,
@@ -46,7 +45,6 @@ class SettingPageState extends BaseState {
                 // 跟随滑动的title
                 background: Container(
                   height: 200,
-                  color: Colors.blueAccent,
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
@@ -67,6 +65,9 @@ class SettingPageState extends BaseState {
                           onTap: () async {
                             final ImagePicker _picker = ImagePicker();
                             XFile image = await _picker.pickImage(source: ImageSource.gallery);
+                            if (image == null) {
+                              return;
+                            }
                             ui.Image img = await Navigator.pushNamed<dynamic>(
                               context,
                               'ImageCutView',

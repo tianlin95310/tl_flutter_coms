@@ -53,7 +53,7 @@ class NewsPageState extends BaseState with SingleTickerProviderStateMixin {
       onlyOneScrollInBody: true,
       pinnedHeaderSliverHeightBuilder: () {
         print('MediaQuery.of(context).padding' + MediaQuery.of(context).padding.toString());
-        return MediaQuery.of(context).padding.top + kToolbarHeight;
+        return MediaQuery.of(context).padding.top + 48;
       },
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
         return [
@@ -85,8 +85,8 @@ class NewsPageState extends BaseState with SingleTickerProviderStateMixin {
           SliverPersistentHeader(
             pinned: true,
             delegate: MySliverPersistentHeaderDelegate(
-              child: getTabBar(kToolbarHeight),
-              size: Size(double.infinity, kToolbarHeight),
+              child: getTabBar(48),
+              size: Size(double.infinity, 48),
             ),
           )
         ];

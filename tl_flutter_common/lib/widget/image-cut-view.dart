@@ -132,6 +132,10 @@ class ImageCutViewState extends State<ImageCutView> {
   }
 
   @override
+  void didUpdateWidget(covariant ImageCutView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+  }
+  @override
   Widget build(BuildContext context) {
     initRadius(context);
     return Scaffold(

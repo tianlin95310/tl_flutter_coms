@@ -9,7 +9,7 @@ class TLThemes with ChangeNotifier {
     notifyListeners();
   }
 
-  get primaryColor => [Colors.cyanAccent, Colors.blueAccent][_themeIndex];
+  get primaryColor => [Colors.cyanAccent, Colors.blueAccent, Colors.amberAccent, Colors.pinkAccent][_themeIndex];
 
   // use this method get a object can refresh Style when listen = true, and notifyListeners is called
   static TLThemes getProvider(BuildContext context, {bool listen = true}) {
@@ -34,8 +34,22 @@ class TLThemes with ChangeNotifier {
           dividerColor: Colors.black12,
           indicatorColor: primaryColor,
           // brightness: Brightness.dark,
+        ),
+        ThemeData(
+          primaryColor: primaryColor,
+          primaryColorDark: primaryColor,
+          primaryColorLight: primaryColor,
+          dividerColor: Colors.black12,
+          indicatorColor: primaryColor,
+          // brightness: Brightness.dark,
+        ),
+        ThemeData(
+          primaryColor: primaryColor,
+          primaryColorDark: primaryColor,
+          primaryColorLight: primaryColor,
+          dividerColor: Colors.black12,
+          indicatorColor: primaryColor,
+          // brightness: Brightness.dark,
         )
       ][_themeIndex];
-
-  Color get textColor => [Colors.cyanAccent, Colors.redAccent][_themeIndex];
 }
