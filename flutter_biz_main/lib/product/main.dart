@@ -41,6 +41,7 @@ class ProductPageState extends BasePageTitleState with SingleTickerProviderState
             children: tabs.map((String key) {
               // PageStorage即可实现保留滚动外置,without NestedScrollView
               return ListView.builder(
+                physics: BouncingScrollPhysics(),
                 key: PageStorageKey(key),
                 padding: EdgeInsets.zero,
                 itemBuilder: (BuildContext context, int index) {

@@ -95,8 +95,6 @@ class HomePageState extends BaseState {
             pinned: true,
             // 固定的title
             backgroundColor: TLThemes.getProvider(context).primaryColor,
-            // title: Text(I18n.getProvider(context).main),
-            // actions: getActions(context),
             // floating: true,
             // 为true是AppBar会自动回弹
             // snap: true,

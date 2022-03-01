@@ -9,7 +9,7 @@ class TLThemes with ChangeNotifier {
     notifyListeners();
   }
 
-  get primaryColor => [Colors.cyanAccent, Colors.redAccent][_themeIndex];
+  get primaryColor => [Colors.cyanAccent, Colors.blueAccent][_themeIndex];
 
   // use this method get a object can refresh Style when listen = true, and notifyListeners is called
   static TLThemes getProvider(BuildContext context, {bool listen = true}) {
@@ -23,7 +23,7 @@ class TLThemes with ChangeNotifier {
           primaryColor: primaryColor,
           primaryColorDark: primaryColor,
           primaryColorLight: primaryColor,
-          dividerColor: primaryColor,
+          dividerColor: Colors.black12,
           indicatorColor: primaryColor,
           // brightness: Brightness.dark, // 影响界面内所有的文字颜色,控件的背景色，前景色
         ),
@@ -31,8 +31,8 @@ class TLThemes with ChangeNotifier {
           primaryColor: primaryColor,
           primaryColorDark: primaryColor,
           primaryColorLight: primaryColor,
-          dividerColor: primaryColor,
-            indicatorColor: primaryColor,
+          dividerColor: Colors.black12,
+          indicatorColor: primaryColor,
           // brightness: Brightness.dark,
         )
       ][_themeIndex];

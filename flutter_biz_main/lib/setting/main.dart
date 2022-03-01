@@ -1,8 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tl_flutter_common/main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tl_flutter_common/utils/image-convert-utils.dart';
+import 'dart:ui' as ui;
+
 class SettingPage extends BaseStatefulWidget {
   @override
   State<StatefulWidget> getState() {
@@ -11,6 +15,8 @@ class SettingPage extends BaseStatefulWidget {
 }
 
 class SettingPageState extends BaseState {
+  var img;
+
   @override
   Widget getBody(BuildContext context) {
     return NestedScrollView(
@@ -21,38 +27,79 @@ class SettingPageState extends BaseState {
               pinned: true,
               // 固定的title
               // title: Text(I18n.getProvider(context).mine),
-              backgroundColor: TLThemes.getProvider(context).primaryColor,
+              backgroundColor: Colors.redAccent,
               floating: true,
               // 为true是AppBar会自动回弹
               // snap: true,
               /// SliverAppBar展开的高度
               expandedHeight: 200,
+              title: Text('Title1'),
               flexibleSpace: FlexibleSpaceBar(
                 // 背景消失的动画方式
-                collapseMode: CollapseMode.none,
+                collapseMode: CollapseMode.parallax,
+                title: Text(
+                  'Title2',
+                  style: TextStyle(color: Colors.white),
+                ),
+                centerTitle: true,
                 titlePadding: EdgeInsetsDirectional.only(start: 16, bottom: 16),
                 // 跟随滑动的title
-                title: GestureDetector(
-                  onTap: () async {
-                    final ImagePicker _picker = ImagePicker();
-                    XFile image = await _picker.pickImage(source: ImageSource.gallery);
-                    Navigator.pushNamed(context, 'ImageCutView', arguments: {
-                      'img': await ImageUtils.loadByXFile(image)
-                    });
-                  },
-                  child: Icon(Icons.manage_search, color: Colors.white,),
-                ),
                 background: Container(
-                  color: TLThemes.getProvider(context).primaryColor,
-                  child: Container(
-                    height: 200,
-                    color: TLThemes.getProvider(context).primaryColor,
-                    child: CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      imageUrl:
-                          'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Ff603918fa0ec08fa6443cb2657ee3d6d54fbdaf4.jpg&refer=http%3A%2F%2Fhiphotos.baidu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627545167&t=484457509865f14437174d7959a23305',
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    ),
+                  height: 200,
+                  color: Colors.blueAccent,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        height: 224,
+                        color: TLThemes.getProvider(context).primaryColor,
+                        child: CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          imageUrl:
+                              'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhiphotos.baidu.com%2Fzhidao%2Fpic%2Fitem%2Ff603918fa0ec08fa6443cb2657ee3d6d54fbdaf4.jpg&refer=http%3A%2F%2Fhiphotos.baidu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627545167&t=484457509865f14437174d7959a23305',
+                          errorWidget: (context, url, error) => Icon(Icons.error),
+                        ),
+                      ),
+                      Container(
+                        width: 100,
+                        height: 100,
+                        child: GestureDetector(
+                          onTap: () async {
+                            final ImagePicker _picker = ImagePicker();
+                            XFile image = await _picker.pickImage(source: ImageSource.gallery);
+                            ui.Image img = await Navigator.pushNamed<dynamic>(
+                              context,
+                              'ImageCutView',
+                              arguments: {
+                                'img': await ImageUtils.loadByXFile(image),
+                                'path': image.path,
+                              },
+                            );
+                            ByteData byteData = await img.toByteData(format: ui.ImageByteFormat.png);
+                            this.img = byteData.buffer.asUint8List();
+                            setState(() {});
+                          },
+                          child: this.img == null
+                              ? Center(
+                                  child: Icon(
+                                  Icons.account_circle,
+                                  color: Colors.white,
+                                  size: 50,
+                                ))
+                              : Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                                    image: DecorationImage(
+                                      fit: BoxFit.contain,
+                                      image: MemoryImage(this.img),
+                                    ),
+                                  ),
+                                ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
