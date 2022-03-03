@@ -405,7 +405,7 @@ packages:
     source: hosted
     version: "0.4.2"
   tl_flutter_common:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       path: "../tl_flutter_common"
       relative: true

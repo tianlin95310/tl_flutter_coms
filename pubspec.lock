@@ -119,14 +119,14 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_biz_main:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       path: flutter_biz_main
       relative: true
     source: path
     version: "1.0.0+1"
   flutter_biz_setting:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       path: flutter_biz_setting
       relative: true
@@ -419,7 +419,7 @@ packages:
     source: hosted
     version: "0.4.2"
   tl_flutter_common:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       path: tl_flutter_common
       relative: true
