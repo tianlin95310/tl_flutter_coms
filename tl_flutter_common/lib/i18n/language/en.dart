@@ -6,6 +6,7 @@ final Map en = {
     'themeSetting': 'ThemeSetting',
     'languageSetting': 'LanguageSetting',
     'chinese': 'Chinese',
-    'english': 'English'
+    'english': 'English',
+    'custom_widget': 'Custom Widgets'
   }
 };

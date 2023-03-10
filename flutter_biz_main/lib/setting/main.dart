@@ -143,6 +143,15 @@ class SettingPageState extends BaseState {
               onTap: () {
                 Navigator.pushNamed(context, 'unknown');
               },
+            ),
+            Divider(
+              height: 1,
+            ),
+            ListTile(
+              title: Text('Canvas自定义控件'),
+              onTap: () {
+                Navigator.pushNamed(context, 'CustomWidgets');
+              },
             )
           ],
         ));

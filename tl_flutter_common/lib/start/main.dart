@@ -6,10 +6,12 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tl_flutter_common/main.dart';
 import 'package:tl_flutter_common/widget/image-cut-view.dart';
 import 'package:tl_flutter_common/widget/page-not-found.dart';
+import 'package:tl_flutter_common/widget/custom-widgets.dart';
 
 final Map<String, WidgetBuilder> commonRoutes = {
   'NotFoundPage': (BuildContext context) => NotFoundPage(),
-  'ImageCutView': (BuildContext context, { arguments }) => ImageCutView(arguments: arguments)
+  'ImageCutView': (BuildContext context, { arguments }) => ImageCutView(arguments: arguments),
+  'CustomWidgets': (BuildContext context) => CustomWidgets()
 };
 
 class MyApp extends StatelessWidget {

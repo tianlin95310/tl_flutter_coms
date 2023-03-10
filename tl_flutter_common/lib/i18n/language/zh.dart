@@ -6,6 +6,7 @@ final Map zh = {
     'themeSetting': '主题设置',
     'languageSetting': '语言设置',
     'chinese': '中文',
-    'english': '英文'
+    'english': '英文',
+    'custom_widget': '自定义控件'
   }
 };

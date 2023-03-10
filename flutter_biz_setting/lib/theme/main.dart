@@ -50,7 +50,6 @@ class ThemeSettingState extends BasePageTitleState {
               GestureDetector(
                 onTap: () {
                   TLThemes.getProvider(context, listen: false).changeTheme(0);
-                  // themes.changeTheme(0);
                 },
                 child: getItem(Colors.cyanAccent, 0),
               ),

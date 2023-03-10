@@ -20,6 +20,8 @@ class I18n with ChangeNotifier {
 
   String get cart => $('cart');
 
+  String get custom_widget => $('custom_widget');
+
   void setLocale(Locale locale) {
     this._locale = locale;
     notifyListeners();

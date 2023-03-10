@@ -7,6 +7,33 @@ class WidgetsPage extends BaseStatefulWidget {
   }
 }
 
+class WidgetWrapper extends StatelessWidget {
+  final Widget child;
+  final String msg;
+  //
+  // Widget get child => _child;
+  //
+  // set child(Widget value) {
+  //   _child = value;
+  // }
+  WidgetWrapper({this.child, this.msg});
+
+  @override
+  Widget build(BuildContext context) {
+    if (this.child == null) {
+      return Container();
+    }
+    String msg = this.msg ?? this.child.runtimeType.toString();
+    Widget child = this.child ?? Container();
+    return Tooltip(
+        message: msg,
+        child: Padding(
+          padding: EdgeInsets.only(top: 8, bottom: 8),
+          child: child,
+        ));
+  }
+}
+
 class WidgetsState extends BasePageTitleState {
   int _currentIndex = 0;
 
@@ -15,65 +42,144 @@ class WidgetsState extends BasePageTitleState {
     super.initState();
   }
 
+  Widget widgetWrapper({Widget child, String msg = ''}) {
+    return Container();
+  }
+
   @override
   Widget getBody(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ListTile(
+            title: Text('布局组件'),
+            subtitle: Text('主要是根布局相关的组件'),
+            leading: Icon(Icons.looks_one),
+            trailing: Icon(Icons.looks_one_outlined),
+            // visualDensity: VisualDensity(vertical: 1, horizontal: 2),
+            dense: false,
+            enableFeedback: false,
+            onTap: () {
+              Navigator.pushNamed(context, 'LayoutComp');
+            },
+          ),
+          Divider(height: 1,),
+          ListTile(
+            title: Text('Material组件'),
+            subtitle: Text('Material Design 风格的组件'),
+            leading: Icon(Icons.looks_two),
+            trailing: Icon(Icons.looks_two_outlined),
+            // visualDensity: VisualDensity(vertical: 1, horizontal: 2),
+            dense: false,
+            enableFeedback: false,
+            onTap: () {
+              Navigator.pushNamed(context, 'MaterialComp');
+            },
+          ),
+          Divider(height: 1,),
+          ListTile(
+            title: Text('Cupertino组件'),
+            subtitle: Text('Cupertino风格的组件'),
+            leading: Icon(Icons.looks_3),
+            trailing: Icon(Icons.looks_3_outlined),
+            // visualDensity: VisualDensity(vertical: 1, horizontal: 2),
+            dense: false,
+            enableFeedback: false,
+            onTap: () {
+              Navigator.pushNamed(context, 'CupertinoComp');
+            },
+          ),
+          Divider(height: 1,),
+          ListTile(
+            title: Text('Sliver嵌套滚动组件'),
+            subtitle: Text('Sliver嵌套滚动风格的组件'),
+            leading: Icon(Icons.looks_4),
+            trailing: Icon(Icons.looks_4_outlined),
+            // visualDensity: VisualDensity(vertical: 1, horizontal: 2),
+            dense: false,
+            enableFeedback: false,
+            onTap: () {
+              Navigator.pushNamed(context, 'SliverComp');
+            },
+          ),
+          Divider(height: 1,),
+          ListTile(
+            title: Text('动画组件'),
+            subtitle: Text('动画风格的组件'),
+            leading: Icon(Icons.looks_5),
+            trailing: Icon(Icons.looks_5_outlined),
+            // visualDensity: VisualDensity(vertical: 1, horizontal: 2),
+            dense: false,
+            enableFeedback: false,
+            onTap: () {
+              Navigator.pushNamed(context, 'AnimComp');
+            },
+          ),
+          Divider(height: 1,),
+          ListTile(
+            title: Text('用户交互组件'),
+            subtitle: Text('用于用户交互的组件'),
+            leading: Icon(Icons.looks_6),
+            trailing: Icon(Icons.looks_6_outlined),
+            // visualDensity: VisualDensity(vertical: 1, horizontal: 2),
+            dense: false,
+            enableFeedback: false,
+            onTap: () {
+              Navigator.pushNamed(context, 'GestureComp');
+            },
+          ),
+          Divider(height: 1,),
+          ListTile(
+            title: Text('Canvas Paint自定义组件'),
+            subtitle: Text('基于Canvas自定义的组件'),
+            leading: Icon(Icons.eighteen_up_rating),
+            trailing: Icon(Icons.eighteen_up_rating_outlined),
+            // visualDensity: VisualDensity(vertical: 1, horizontal: 2),
+            dense: false,
+            enableFeedback: false,
+            onTap: () {
+              Navigator.pushNamed(context, 'CustomWidgets');
+            },
+          ),
+        ],
+      ),
+    );
     return Container(
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Align(
-              // widthFactor: 1,
-              // heightFactor: 1,
-              alignment: Alignment.bottomCenter,
-              child: Text('床前明月光'),
-            ),
-            AppBar(
-              leading: Icon(Icons.ac_unit),
-              title: Text('标题'),
-              actions: [Icon(Icons.access_alarm)],
-            ),
-            AspectRatio(
-              aspectRatio: 4 / 3,
-              child: Container(
-                color: Colors.cyanAccent,
-                height: 100,
-              ),
-            ),
-            BottomNavigationBar(
-              currentIndex: _currentIndex,
-              showUnselectedLabels: true,
-              showSelectedLabels: true,
-              unselectedItemColor: Colors.grey,
-              selectedItemColor: Colors.black,
-              type: BottomNavigationBarType.fixed,
-              items: [
-                BottomNavigationBarItem(label: 'tab1', icon: Icon(Icons.accessibility)),
-                BottomNavigationBarItem(label: 'tab2', icon: Icon(Icons.baby_changing_station)),
-                BottomNavigationBarItem(label: 'tab3', icon: Icon(Icons.cabin)),
-                BottomNavigationBarItem(label: 'tab4', icon: Icon(Icons.dangerous)),
-                BottomNavigationBarItem(label: 'tab5', icon: Icon(Icons.eight_k))
-              ],
-              onTap: (int index) {
-                setState(() {
-                  this._currentIndex = index;
-                });
-              },
-            ),
             Card(
-              child: ButtonBar(
-                children: [
-                  TextButton(
-                    child: Text('按钮1'),
-                  ),
-                  OutlinedButton(onPressed: () {}, child: Text('按钮2')),
-                  FloatingActionButton(onPressed: () {}),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.add)),
-                  ElevatedButton(onPressed: () {}, child: Text('ElevatedButton'))
-                  // RaisedButton(onPressed: onPressed)
-                  // FlatButton(onPressed: onPressed, child: child)
-                ],
+              child: Container(
+                child: Column(
+                  children: [
+                    widgetWrapper(
+                      child: CupertinoTabBar(
+                        currentIndex: _currentIndex,
+                        items: [
+                          BottomNavigationBarItem(
+                              label: 'tab1', icon: Icon(Icons.accessibility)),
+                          BottomNavigationBarItem(
+                              label: 'tab2',
+                              icon: Icon(Icons.baby_changing_station)),
+                          BottomNavigationBarItem(
+                              label: 'tab3', icon: Icon(Icons.cabin)),
+                          BottomNavigationBarItem(
+                              label: 'tab4', icon: Icon(Icons.dangerous)),
+                          BottomNavigationBarItem(
+                              label: 'tab5', icon: Icon(Icons.eight_k))
+                        ],
+                        onTap: (int index) {
+                          setState(() {
+                            this._currentIndex = index;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
+
             Card(
               child: Column(
                 children: [
@@ -125,29 +231,7 @@ class WidgetsState extends BasePageTitleState {
                 ],
               ),
             ),
-            CupertinoTabBar(
-              currentIndex: _currentIndex,
-              items: [
-                BottomNavigationBarItem(label: 'tab1', icon: Icon(Icons.accessibility)),
-                BottomNavigationBarItem(label: 'tab2', icon: Icon(Icons.baby_changing_station)),
-                BottomNavigationBarItem(label: 'tab3', icon: Icon(Icons.cabin)),
-                BottomNavigationBarItem(label: 'tab4', icon: Icon(Icons.dangerous)),
-                BottomNavigationBarItem(label: 'tab5', icon: Icon(Icons.eight_k))
-              ],
-              onTap: (int index) {
-                setState(() {
-                  this._currentIndex = index;
-                });
-              },
-            ),
             // Dismissible(key: Key('sss'), child: Container(width: 80, height: 80, color: Colors.red,), onDismissed: (DismissDirection direction){},),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Divider(
-                height: 1,
-                thickness: 1,
-              ),
-            ),
             LinearProgressIndicator(
               value: 20,
             ),
@@ -157,7 +241,8 @@ class WidgetsState extends BasePageTitleState {
               child: Container(
                 width: 1000,
                 height: 30,
-                child: Text('1234567890qwertyuiopasdfghjklzxcvbnm1234567890qwertyuiopasdfghjklzxcvbnm1234567890qwertyuiopasdfghjklzxcvbnm'),
+                child: Text(
+                    '1234567890qwertyuiopasdfghjklzxcvbnm1234567890qwertyuiopasdfghjklzxcvbnm1234567890qwertyuiopasdfghjklzxcvbnm'),
               ),
               controller: ScrollController(),
             )
@@ -165,5 +250,10 @@ class WidgetsState extends BasePageTitleState {
         ),
       ),
     );
+  }
+
+  @override
+  String getTitle(BuildContext context) {
+    return 'flutter 组件';
   }
 }
