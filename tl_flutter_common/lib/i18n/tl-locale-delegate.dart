@@ -1,7 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'tl-localizations.dart';
 
 class TlLocalizationsDelegate extends LocalizationsDelegate<I18n> {

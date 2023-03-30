@@ -15,6 +15,14 @@ class MaterialCompState extends BasePageTitleState {
   int _currentIndex = 0;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
   @override
   Widget getBody(BuildContext context) {
     return SingleChildScrollView(
@@ -77,6 +85,37 @@ class MaterialCompState extends BasePageTitleState {
 
           Card(child: Column(
             children: [
+              Chip(label: Text('Chip Text')),
+              ClipOval(child: Text('疑是地上霜'), clipBehavior: Clip.hardEdge),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: LinearProgressIndicator(value: 20, color: Colors.lightBlueAccent,),
+              ),
+              Container(
+                padding: EdgeInsets.all(8),
+                width: 170,
+                height: 200,
+                // 滚动条
+                child: Scrollbar(
+                  scrollbarOrientation: ScrollbarOrientation.right,
+                  thumbVisibility: true,
+                  controller: _scrollController,
+                  child: SingleChildScrollView(
+                    controller: _scrollController,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 1000,
+                          child: Text(
+                              '1234567890qwertyuiopasdfghjklzxcvbnm1234567890qwertyuiopasdfghjklzxcvbnm1234567890qwertyuiopasdfghjklzxcvbnm'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              RawKeyboardListener(focusNode: FocusNode(), child: TextField()),
 
             ],
           ),),

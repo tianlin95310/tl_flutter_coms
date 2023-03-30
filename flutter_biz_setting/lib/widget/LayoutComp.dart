@@ -151,7 +151,7 @@ class LayoutCompState extends BasePageTitleState {
           Row(
             children: [
               Offstage(offstage: true, child: Text('AAA')),
-              Text('BBB')
+              Text('Offstage BBB')
             ],
           ),
           Container(
@@ -161,7 +161,7 @@ class LayoutCompState extends BasePageTitleState {
             child: OverflowBox(minHeight: 100, maxHeight: 200, child: Column(
               children: [
                 SizedBox(height: 100,),
-                Container(height: 150, color: Colors.green,)
+                Container(height: 150, color: Colors.green, child: Text('OverflowBox'),)
               ],
             ),),
           ),
@@ -171,8 +171,8 @@ class LayoutCompState extends BasePageTitleState {
             height: 200,
             color: Colors.indigo,
             child: Stack(children: [
-              Card(child: Text('AAA', style: TextStyle(fontSize: 24),)),
-              Card(child: Text('BBB', style: TextStyle(fontSize: 24),)),
+              Card(child: Text('Stack AAA', style: TextStyle(fontSize: 24),)),
+              Card(child: Text('Stack BBB', style: TextStyle(fontSize: 24),)),
             ],),
           ),
           Container(
@@ -180,17 +180,17 @@ class LayoutCompState extends BasePageTitleState {
             height: 200,
             color: Colors.indigo,
             child: IndexedStack(children: [
-              Card(child: Text('AAA', style: TextStyle(fontSize: 24),)),
-              Card(child: Text('BBB', style: TextStyle(fontSize: 24),))
+              Card(child: Text('IndexedStack AAA', style: TextStyle(fontSize: 24),)),
+              Card(child: Text('IndexedStack BBB', style: TextStyle(fontSize: 24),))
             ],),
           ),
           // Flow(delegate: MyFlowDelegate()),
           Wrap(children: [
-            Container(width: 200, color: Colors.black, height: 60,),
+            Container(width: 100, color: Colors.black, height: 60,),
             Container(width: 200, color: Colors.black12, height: 60,),
-            Container(width: 200, color: Colors.black26, height: 60,),
+            Container(width: 100, color: Colors.black26, height: 60,),
             Container(width: 200, color: Colors.black38, height: 60,),
-            Container(width: 200, color: Colors.black45, height: 60,),
+            Container(width: 100, color: Colors.black45, height: 60,),
           ],),
           Divider(),
           ListBody(children: [

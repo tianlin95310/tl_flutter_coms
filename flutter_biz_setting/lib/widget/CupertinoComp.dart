@@ -16,6 +16,14 @@ class CupertinoCompState extends BasePageTitleState {
   Widget getBody(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+        children: [
+          CupertinoNavigationBar(
+            leading: Icon(Icons.arrow_back_ios),
+            trailing: Text('FF'),
+            middle: Text('middle'),
+            previousPageTitle: '标题',
+          ),
+        ],
       ),
     );
   }
