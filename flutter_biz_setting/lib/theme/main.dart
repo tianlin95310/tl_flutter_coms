@@ -11,7 +11,7 @@ class ThemeSetting extends BaseStatefulWidget {
 class ThemeSettingState extends BasePageTitleState {
   @override
   String getTitle(BuildContext context) {
-    return I18n.getProvider(context).themeSetting;
+    return I18n.of(context).themeSetting;
   }
 
   Widget getItem(Color themeColor, int themeIndex) {
@@ -45,36 +45,50 @@ class ThemeSettingState extends BasePageTitleState {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              GestureDetector(
-                onTap: () {
-                  TLThemes.getProvider(context, listen: false).changeTheme(0);
-                },
-                child: getItem(Colors.cyanAccent, 0),
-              ),
-              GestureDetector(
-                onTap: () {
-                  TLThemes.getProvider(context, listen: false).changeTheme(1);
-                  // themes.changeTheme(1);
-                },
-                child: getItem(Colors.blueAccent, 1),
-              ),
-              GestureDetector(
-                onTap: () {
-                  TLThemes.getProvider(context, listen: false).changeTheme(2);
-                  // themes.changeTheme(1);
-                },
-                child: getItem(Colors.amberAccent, 2),
-              ),
-              GestureDetector(
-                onTap: () {
-                  TLThemes.getProvider(context, listen: false).changeTheme(3);
-                  // themes.changeTheme(1);
-                },
-                child: getItem(Colors.pinkAccent, 3),
-              ),
+              Text('使用暗黑主题'),
+              Switch(value: TLThemes.getProvider(context, listen: false).themeMode == ThemeMode.dark, onChanged: (value){
+                print(value);
+                if (value) {
+                  TLThemes.getProvider(context, listen: false).updateMode(true);
+                } else {
+                  TLThemes.getProvider(context, listen: false).updateMode(false);
+                }
+              })
             ],
+          ),
+          Offstage(
+            offstage: TLThemes.getProvider(context, listen: false).themeMode == ThemeMode.dark,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    TLThemes.getProvider(context, listen: false).changeTheme(0);
+                  },
+                  child: getItem(Colors.cyanAccent, 0),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    TLThemes.getProvider(context, listen: false).changeTheme(1);
+                  },
+                  child: getItem(Colors.blueAccent, 1),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    TLThemes.getProvider(context, listen: false).changeTheme(2);
+                  },
+                  child: getItem(Colors.amberAccent, 2),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    TLThemes.getProvider(context, listen: false).changeTheme(3);
+                  },
+                  child: getItem(Colors.pinkAccent, 3),
+                ),
+              ],
+            ),
           )
         ],
       ),

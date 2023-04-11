@@ -36,6 +36,17 @@ class MyApp extends StatelessWidget {
     } else if (language == 'en-US') {
       i18n = I18n(Locale("en", 'US'));
     }
+
+    /// 1,Provider
+    /// Provider是最基本的Provider组件，可以使用它为组件树中的任何位置提供值，但是当该值更改的时候，它并不会更新UI
+    /// 2,ChangeNotifierProvider
+    /// 它跟Provider组件不同，ChangeNotifierProvider会监听模型对象的变化，而且当数据改变时，它也会重建Consumer（消费者）
+    /// 3,MultiProvider
+    /// 4,ProxyProvider
+    /// 5,ChangeNotifierProxyProvider
+    /// 6,StreamProvider
+    /// 7,FutureProvider
+    /// 8,ListenableProxyProvider
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: themes),
@@ -53,11 +64,14 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               title: 'Flutter Demo',
               theme: TLThemes.getProvider(context).theme,
+              darkTheme: TLThemes.getProvider(context).darkTheme,
+                // themeMode determines theme and darkTheme which be used, the default is ThemeMode.system
+              themeMode: TLThemes.getProvider(context).themeMode,
               initialRoute: 'home',
               routes: visitRoutes,
               // app进入任务列表菜单后的标题
               onGenerateTitle: (BuildContext context) {
-                return 'Tl Flutter Comps';
+                return localizations.appTitle;
               },
               // 未注册的动态路由
               onGenerateRoute: (RouteSettings settings) {

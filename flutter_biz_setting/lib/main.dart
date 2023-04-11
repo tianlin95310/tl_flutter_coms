@@ -1,6 +1,5 @@
 library biz_setting;
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_biz_setting/about/main.dart';
 import 'package:flutter_biz_setting/language/main.dart';

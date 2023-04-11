@@ -49,7 +49,7 @@ abstract class BasePageTitleState<T extends BaseStatefulWidget> extends State<T>
     return AppBar(
       title: Text(getTitle(context)),
       actions: getActions(context),
-      backgroundColor: TLThemes.getProvider(context).primaryColor,
+      // backgroundColor: TLThemes.getProvider(context).primaryColor,
     );
   }
 

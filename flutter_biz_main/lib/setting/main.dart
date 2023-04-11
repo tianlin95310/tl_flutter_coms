@@ -112,7 +112,7 @@ class SettingPageState extends BaseState {
           physics: BouncingScrollPhysics(),
           children: [
             ListTile(
-              title: Text(I18n.getProvider(context).themeSetting),
+              title: Text(I18n.of(context).themeSetting),
               onTap: () {
                 Navigator.pushNamed(context, 'ThemeSetting');
               },
@@ -121,7 +121,7 @@ class SettingPageState extends BaseState {
               height: 1,
             ),
             ListTile(
-              title: Text(I18n.getProvider(context).languageSetting),
+              title: Text(I18n.of(context).languageSetting),
               onTap: () {
                 Navigator.pushNamed(context, 'LanguageSetting');
               },

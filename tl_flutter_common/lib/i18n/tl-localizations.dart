@@ -22,6 +22,8 @@ class I18n with ChangeNotifier {
 
   String get custom_widget => $('custom_widget');
 
+  String get appTitle => $('custom_widget');
+
   void setLocale(Locale locale) {
     this._locale = locale;
     notifyListeners();
@@ -32,7 +34,11 @@ class I18n with ChangeNotifier {
     return Localizations.of(context, I18n);
   }
 
-  // 用于发送事件刷新
+//  用于获取I18n
+//  InheritedWidget有个默认的约定：如果状态是希望暴露出的，应当提供一个 “of” 静态方法来获取其对象，开发者便可直接通过该方法来获取。
+//  获取最近的context上下文对象
+//  这个静态方法可以获取widget树中最近的Provider<T>，并且返回它的值。如果listen为true,那么随后value发生的变化会触发State.build和
+//  State.didChangeDependencies. 如果需要在initState中调用Provider.of或者如下调用Provider的create方法时，需要设置listen为false：
   static I18n getProvider(BuildContext context, {bool listen = false}) {
     return Provider.of<I18n>(context, listen: listen);
   }
